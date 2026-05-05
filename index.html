@@ -774,6 +774,364 @@ h1,h2,h3,h4 { font-weight: 600; line-height: 1.3; }
   .price-modal-footer { padding: 12px 18px; }
 }
 
+/* Bracket-fill modal — asks rep to fill in [Day], [Time], [Payment link], etc. before copying */
+.bracket-modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  z-index: 120;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+.bracket-modal-backdrop.open { opacity: 1; pointer-events: auto; }
+.bracket-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(.96);
+  width: calc(100% - 32px); max-width: 480px;
+  max-height: calc(100vh - 48px);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  z-index: 121;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.bracket-modal.open {
+  opacity: 1; pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+.bracket-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line-soft);
+  background: #FFF7ED;
+}
+.bracket-modal-header h2 {
+  margin: 0; font-size: 17px;
+  color: var(--accent-dark);
+}
+.bracket-modal-header .subtitle {
+  font-size: 13px; color: #9A3412;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.bracket-modal-body {
+  padding: 18px 22px;
+  overflow-y: auto;
+  flex: 1;
+}
+.bracket-modal-body .field {
+  margin-bottom: 14px;
+}
+.bracket-modal-body .field:last-child { margin-bottom: 0; }
+.bracket-modal-body .field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  margin-bottom: 5px;
+}
+.bracket-modal-body .field input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  transition: border-color .15s;
+}
+.bracket-modal-body .field input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, .15);
+}
+.bracket-modal-body .field .hint {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 4px;
+}
+.bracket-modal-footer {
+  padding: 14px 22px;
+  border-top: 1px solid var(--line-soft);
+  background: var(--surface-alt);
+  display: flex; gap: 10px; justify-content: flex-end;
+}
+.bracket-modal-footer .btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .bracket-modal-header { padding: 14px 18px; }
+  .bracket-modal-body { padding: 14px 18px; }
+  .bracket-modal-footer { padding: 12px 18px; }
+}
+
+/* =============================================================
+   OBJECTION FOCUS MODAL — for Complex objections (v1.3)
+   Wider than bracket modal because complex objections have more content.
+   ============================================================= */
+.objection-modal-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10, 31, 68, 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s;
+  z-index: 220;
+}
+.objection-modal-backdrop.open { opacity: 1; pointer-events: auto; }
+.objection-modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(.96);
+  width: min(680px, calc(100vw - 32px));
+  max-height: calc(100vh - 64px);
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(10, 31, 68, .28);
+  opacity: 0; pointer-events: none;
+  transition: opacity .18s, transform .18s;
+  z-index: 221;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.objection-modal.open {
+  opacity: 1; pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+.objection-modal-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.objection-modal-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  color: #C13838;
+  letter-spacing: 1.2px;
+  margin-bottom: 4px;
+}
+.objection-modal-header h2 {
+  margin: 0;
+  font-size: 19px;
+  color: #0A1F44;
+  line-height: 1.25;
+}
+.objection-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.objection-modal-close:hover { color: #1F2937; }
+.objection-modal-body {
+  padding: 18px 22px;
+  overflow-y: auto;
+  flex: 1;
+}
+.objection-modal-body .om-block {
+  margin-bottom: 18px;
+}
+.objection-modal-body .om-block:last-child { margin-bottom: 0; }
+.objection-modal-body h4 {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0A1F44;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #E5E7EB;
+}
+.objection-modal-body .om-says {
+  background: #F9FAFB;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #1F2937;
+}
+.objection-modal-body .om-says ul { margin: 0; padding-left: 18px; }
+.objection-modal-body .om-says li { margin-bottom: 4px; line-height: 1.45; }
+.objection-modal-body .om-mean {
+  background: #F0F6FD;
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: #1F2937;
+  line-height: 1.5;
+}
+.objection-modal-body .om-step {
+  background: #F0FDFA;
+  border-left: 3px solid #0F766E;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+.objection-modal-body .om-step-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #0F766E;
+  letter-spacing: .05em;
+  margin-bottom: 4px;
+}
+.objection-modal-body .om-step em {
+  font-style: italic;
+  color: #1F2937;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.objection-modal-body .om-path {
+  background: #F0FDFA;
+  border-left: 3px solid #0F766E;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+.objection-modal-body .om-path-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0F766E;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.objection-modal-body .om-path-script {
+  font-size: 13.5px;
+  color: #1F2937;
+  line-height: 1.55;
+  font-style: italic;
+  white-space: pre-wrap;
+}
+.objection-modal-body .om-warnings {
+  background: #FEF2F2;
+  border-left: 3px solid #C13838;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #991B1B;
+  border-radius: 4px;
+}
+.objection-modal-body .om-warnings ul { margin: 0; padding-left: 20px; }
+.objection-modal-body .om-warnings li { margin-bottom: 4px; line-height: 1.45; }
+.objection-modal-body .om-bullets {
+  background: #F9FAFB;
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #1F2937;
+}
+.objection-modal-body .om-bullets ul { margin: 0; padding-left: 18px; }
+.objection-modal-body .om-bullets li { margin-bottom: 4px; line-height: 1.45; }
+.objection-modal-body .om-templates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.objection-modal-footer {
+  padding: 14px 22px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+@media (max-width: 720px) {
+  .objection-modal-header { padding: 14px 18px; }
+  .objection-modal-body { padding: 14px 18px; }
+  .objection-modal-footer { padding: 12px 18px; }
+}
+
+/* =============================================================
+   OBJECTION TIER LIST (v1.3) — replaces the old category-based list
+   ============================================================= */
+.obj-list-intro {
+  background: #F0F6FD;
+  border-left: 3px solid var(--primary);
+  padding: 12px 14px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--primary-dark);
+}
+.obj-list-subintro {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 0 0 16px 4px;
+  line-height: 1.45;
+}
+.obj-tier {
+  margin-bottom: 18px;
+}
+.obj-tier-header {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  margin: 0 0 8px 4px;
+}
+.obj-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  margin-bottom: 5px;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: background .12s, border-color .12s;
+}
+.obj-list-item:hover {
+  background: #F9FAFB;
+  border-color: #D1D5DB;
+}
+.obj-list-item .obj-list-num {
+  font-weight: 800;
+  font-size: 14px;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+.obj-list-item .obj-list-info {
+  flex: 1;
+  min-width: 0;
+}
+.obj-list-item .obj-list-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1F2937;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+.obj-list-item .obj-list-oneliner {
+  font-size: 11.5px;
+  color: #6B7280;
+  line-height: 1.4;
+}
+.obj-complex-badge {
+  font-size: 13px;
+  color: #0F766E;
+  font-weight: 700;
+  align-self: center;
+  background: #ECFDF5;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
 .slide-panel {
   position: fixed; top: 0; right: 0; bottom: 0;
   width: 100%; max-width: 520px;
@@ -1765,6 +2123,38 @@ h1,h2,h3,h4 { font-weight: 600; line-height: 1.3; }
     </div>
   </div>
 
+  <!-- Bracket-fill modal (asks rep to fill [Day], [Time], [Payment link], etc. before copying) -->
+  <div id="bracketModalBackdrop" class="bracket-modal-backdrop"></div>
+  <div id="bracketModal" class="bracket-modal" role="dialog" aria-modal="true" aria-labelledby="bracketModalTitle">
+    <div class="bracket-modal-header">
+      <h2 id="bracketModalTitle">Just a few details before copying</h2>
+      <div class="subtitle">Fill in the missing brackets so the message is ready to send.</div>
+    </div>
+    <div class="bracket-modal-body" id="bracketModalBody">
+      <!-- Form rendered dynamically per template -->
+    </div>
+    <div class="bracket-modal-footer">
+      <button class="btn btn-ghost" id="bracketModalCancelBtn">Cancel</button>
+      <button class="btn btn-primary" id="bracketModalCopyBtn">Copy with these details</button>
+    </div>
+  </div>
+
+  <!-- Objection focus modal (Complex objections only — opens centered overlay) -->
+  <div id="objectionModalBackdrop" class="objection-modal-backdrop"></div>
+  <div id="objectionModal" class="objection-modal" role="dialog" aria-modal="true" aria-labelledby="objectionModalTitle">
+    <div class="objection-modal-header">
+      <div style="flex: 1; min-width: 0;">
+        <div class="objection-modal-eyebrow" id="objectionModalEyebrow">COMPLEX OBJECTION</div>
+        <h2 id="objectionModalTitle">Title</h2>
+      </div>
+      <button class="objection-modal-close" id="objectionModalCloseBtn" aria-label="Close">✕</button>
+    </div>
+    <div class="objection-modal-body" id="objectionModalBody"></div>
+    <div class="objection-modal-footer">
+      <button class="btn btn-primary" id="objectionModalDoneBtn">Done</button>
+    </div>
+  </div>
+
   <!-- Objection slide-out panel -->
   <div id="panelBackdrop" class="panel-backdrop"></div>
   <div id="objectionPanel" class="slide-panel">
@@ -2013,6 +2403,7 @@ function freshState() {
     crmNote: { callType: "First Call (Cold)", concern: "None", whatTheySaid: "", personal: "" },
     comfortInterest: false,  // Bali-specific: flagged if Comfort upsell screen 4.2 was visited
     priceAlreadyDelivered: false,  // v1.1: flagged when Price Interruption modal is opened at least once
+    bracketFills: {},  // v1.2: per-call memory of bracket values (day, time, paymentLink, etc.) — pre-fills modal next time
     branchTaken: null,       // 'A' | 'B' | 'C' | 'D' — set when first branch button clicked
     lastSavedAt: Date.now()
   };
@@ -2038,6 +2429,7 @@ function loadState() {
     if (parsed.customer && parsed.customer.gender === undefined) parsed.customer.gender = null;
     if (parsed.comfortInterest === undefined) parsed.comfortInterest = false;
     if (parsed.priceAlreadyDelivered === undefined) parsed.priceAlreadyDelivered = false;
+    if (parsed.bracketFills === undefined) parsed.bracketFills = {};
     if (parsed.branchTaken === undefined) parsed.branchTaken = null;
     return parsed;
   } catch(e) { return null; }
@@ -2175,12 +2567,33 @@ function renderTemplateText(text) {
   }
 
   const repName = (rep && rep.name) ? rep.name : "[Rep Name]";
-  const repPhone = (rep && rep.phone) ? rep.phone : "[number]";
+  const repPhone = (rep && rep.phone) ? rep.phone : "[Rep Phone]";
+
+  // Auto-fillable values
+  const flightStr = flight > 0 ? formatINR(flight) : "[Flight]";
+  const totalStr = flight > 0 ? formatINR(grandEB) : "[Total]";
+  const totalTwoStr = flight > 0 ? formatINR(grandEB * 2) : "[Total × 2]";
+
+  // Bracket-fill values from per-call memory (filled via the bracket-fill modal earlier in the call)
+  const bf = (state && state.bracketFills) || {};
 
   return text
     .replace(/\[Name\]/g, name)
     .replace(/\[Rep Name\]/g, repName)
+    .replace(/\[Rep\]/g, repName)
+    .replace(/\[Rep Phone\]/g, repPhone)
     .replace(/\[number\]/g, repPhone)
+    .replace(/\[Flight\]/g, flightStr)
+    .replace(/\[Total × 2\]/g, totalTwoStr)
+    .replace(/\[Total x 2\]/g, totalTwoStr)
+    .replace(/\[Total\]/g, totalStr)
+    // Bracket-fill memory (only substitute if value exists, otherwise leave bracket for the modal to catch)
+    .replace(/\[Day\]/g, bf.day || "[Day]")
+    .replace(/\[Time\]/g, bf.time || "[Time]")
+    .replace(/\[Destination\]/g, bf.destination || "[Destination]")
+    .replace(/\[Month\]/g, bf.month || "[Month]")
+    .replace(/\[Payment link\]/g, bf.paymentLink || "[Payment link]")
+    .replace(/\[Google Maps link\]/g, bf.mapsLink || "[Google Maps link]")
     .replace(/\{\{flight\}\}/g, formatINR(flight))
     .replace(/\{\{grandEB\}\}/g, formatINR(grandEB))
     .replace(/\{\{pax\}\}/g, pax.toString())
@@ -2215,427 +2628,959 @@ const CHECKPOINTS = [
 ];
 
 /* =============================================================
-   OBJECTIONS — all 21
+   OBJECTIONS — 25 finalized objections from Holy Bible playbook v1.0
+   Tier 1 (Most Common): 7 objections, IDs 1-7
+   Tier 2 (Common):      8 objections, IDs 8-15
+   Tier 3 (Less Common): 10 objections, IDs 16-25
+   Complexity tags drive UI: Complex → centered modal, Simple → panel detail.
    ============================================================= */
 const OBJECTIONS = [
+
+  /* ===== TIER 1 — MOST COMMON (7 objections) ===== */
+
   {
-    id: 1, title: "Not the right time / busy", category: "Exit", freq: "1,363 mentions",
-    says: ["I'm driving right now", "I'm busy, call me later", "This is not a good time", "Call me next week"],
-    means: "Two possibilities — genuinely busy (30–40%) or want to get rid of you (60–70%). Figure out which in 10 seconds.",
-    response: `<p><span class="sub">Opener</span><em>“No problem at all, Sir/Ma'am. I will not take your time right now. Just one quick thing — are you still interested in the Bhutan trip, or should I not disturb you again?”</em></p>
-<p><span class="sub">If genuinely busy</span><em>“No problem. When is a good time — morning or evening? And which day?”</em> → Get specific day + time.</p>
-<p><span class="sub">If "don't call again"</span><em>“Understood, Sir/Ma'am. I will not call again. But I will send you our Bhutan trip details on WhatsApp — just in case. No pressure.”</em> → Send WhatsApp, mark Cold.</p>`,
-    donots: null,
-    whatsapp: `Namaste [Name] Sir/Ma'am,
-
-This is [Rep Name] from ElderGo Senior Tours, Bangalore.
-
-Sorry I caught you at a busy time. I am sharing our Bhutan trip details for whenever you are free.
-
-📎 [Itinerary PDF]
-
-I will call you on [day] at [time] as we discussed.
-
-[Rep Name]
-ElderGo Senior Tours
-📞 [Number]`
+    id: 1, title: "Price too high", tier: 1, complexity: "complex", category: "Budget",
+    oneLiner: "Clarify if it's the total or comparison shopping. Then per-day reframe + installments, OR competitor reframe.",
+    says: [
+      "₹1,30,000 is too much",
+      "Beyond my budget",
+      "That's a lot of money for one trip",
+      "Other companies are doing it cheaper",
+      "Sharp exhale or silence after hearing the grand total"
+    ],
+    means: "Two very different objections sit underneath \"too expensive\" — a real budget concern, or a comparison with a cheaper package. The rep needs to find out which one before responding. Wrong answer to wrong concern wastes the call.",
+    acknowledge: "I understand, Sir/Ma'am.",
+    clarify: "Just so I understand better — is it that the total amount feels high, or were you comparing this with another package you have seen?",
+    paths: [
+      {
+        label: "If total amount feels high",
+        script: "Sir/Ma'am, when you break it down — for a 7-day trip, it works out to about ₹10,700 per person per day. Everything is included — your hotel, all meals, transport, sightseeing, tour manager. If you were to do this trip yourself, just the hotel and meals alone would cost you more.\n\nAlso, you don't pay everything at once. Booking advance is just ₹15,000 per person. After that, the rest is split into 3 easy instalments. The last instalment is about 14 days before the trip. So you have time to plan."
+      },
+      {
+        label: "If comparing with another package",
+        script: "Sir/Ma'am, may I ask which company and what the package included? Because most ₹40-50,000 Bali packages don't include flights, all meals, entry tickets, or a tour manager from India. By the time you add those yourself, you end up paying more than ours, and the experience is much poorer. With us, you pay once. No surprises."
+      },
+      {
+        label: "If push back continues / genuinely cannot afford",
+        script: "Sir/Ma'am, I completely understand. I will note this down — when we have a more budget-friendly trip in the future, I will personally call you. Can I share the link to join our WhatsApp community so that you can stay updated about future trips?"
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"I understand, Sir/Ma'am.\"",
+      "Clarify: \"Total amount feels high, or comparing with another package?\"",
+      "If total feels high → per-day reframe (₹10,700/day per person) + instalments (₹15K advance + 3 parts, last 14 days before trip)",
+      "If comparing → competitor reframe (₹40-50K skips flights, meals, tour manager, entry tickets)",
+      "If genuinely can't afford → mark Will Join Future Tour, send WhatsApp community link, don't push"
+    ],
+    warnings: [
+      "If \"last year's price was less\" → switch to #2",
+      "If \"give me a discount\" → switch to #21"
+    ],
+    templateIds: ["A1", "B4"]
   },
+
   {
-    id: 2, title: "Not interested (no reason)", category: "Exit", freq: "657 mentions",
-    says: ["I'm not interested", "No thanks", "Not for me"],
-    means: "80% reflex reaction. They haven't given a reason — there IS one they haven't shared.",
-    response: `<p><em>“I understand, Sir/Ma'am. May I just ask — is it that you are not planning to travel right now, or is it something about this particular trip?”</em></p>
-<p><span class="sub">If "not planning now"</span><em>“No problem. Can I send you one short video of how our senior travelers enjoyed Bhutan? Just so you know what we do.”</em> → If yes, send video, mark WJFT.</p>
-<p><span class="sub">If they give a specific reason</span>Handle with the relevant objection from this playbook.</p>
-<p><span class="sub">If shut down again</span><em>“No problem, Sir/Ma'am. Thank you for your time.”</em> → Mark Lost. Send one WhatsApp anyway.</p>`,
-    donots: null,
-    whatsapp: `Namaste [Name] Sir/Ma'am,
-
-This is [Rep Name] from ElderGo Senior Tours.
-
-Here is a short video from our recent Bhutan trip.
-
-🎥 [Testimonial video]
-
-If you ever plan a trip, just reply here anytime.
-
-Thank you!`
+    id: 2, title: "Last year's price was less", tier: 1, complexity: "complex", category: "Budget",
+    oneLiner: "Acknowledge directly — yes, it was different last year. Then explain: trip is now longer + flight prices have gone up.",
+    says: [
+      "Last year you were doing this for ₹96,000, why is it ₹1,30,000 now?",
+      "I saw your ad — it said ₹96K all-inclusive",
+      "Your prices have gone up too much",
+      "Last year was cheaper"
+    ],
+    means: "These leads enquired about Bali in June–October last year, when our ads were showing it at around ₹96K. Many customers remember that exact number. Now they are hearing ₹1,30,000+ from Bengaluru and the gap feels jarring. The rep must acknowledge the difference directly — denying or being defensive breaks trust. Then explain the two real reasons: trip is longer this year, and flight prices have gone up.",
+    acknowledge: "That's a fair question, Sir/Ma'am. You're right — last year our Bali trip was at a different price.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Two things have changed since last year, Sir/Ma'am.\n\nFirst — the trip is longer. Last year it was 6 days, this year it's 7 days, 6 nights. We added an extra day in Bali because our travelers said the pace was rushed. So you get one more full day of sightseeing this year.\n\nSecond — flight prices have gone up. The rupee-dollar exchange rate has moved, and Bali airfares are higher than last year for everyone. The flight portion alone is around ₹15,000-20,000 more per person than last year. That's outside our control — we just pass it through to you, no markup.\n\nThe land package itself — meaning everything in Bali — has gone up only slightly because we kept the hotel and inclusions the same quality. The bigger jump is the flight. If you're flying from Bengaluru, the round-trip flight today is ₹55,000 per person. From Delhi it's ₹74,000.\n\nAnd honestly, Sir/Ma'am — to be very transparent — this is actually the best price we have seen in the last couple of weeks. June to October is high season for Bali, so the flight prices stay on the higher side during this time. The early bird offer we have running right now brings the total down by ₹5,000 per person.\n\nSo while last year was lower, you're getting an extra day of sightseeing, and the flight increase is what every traveler is paying right now — not just with us."
+      },
+      {
+        label: "If customer pushes: \"₹15-20K is still too much extra\"",
+        script: "Sir/Ma'am, we don't make any margin on flights. We book them at airline price and pass through to you. If you want, you can also book your own flights independently and pay only the land package — but most travelers prefer we handle it because we get group fares and we manage all the timing coordination with the trip dates."
+      },
+      {
+        label: "If customer says: \"I'll wait for prices to come back down\"",
+        script: "Sir/Ma'am, I have to be honest with you — historically, flight prices to Bali have only gone up over the last couple of years, mainly because the rupee has weakened against the dollar. They very rarely come down. If you wait a couple more months hoping for a drop, what usually happens is the prices go up further, not down.\n\nThe only way to get a much lower flight price is to travel during the rainy season — around November to February — when fewer people are travelling and airlines drop prices. But the experience is different because of the rain, and you wouldn't get to enjoy the beaches and outdoor sightseeing the same way.\n\nFor June, this is genuinely the best price we have seen in the last couple of weeks. If you book now, you also get the early bird offer — ₹5,000 off per person. So booking now is actually the right move."
+      },
+      {
+        label: "If customer says: \"Honor last year's price for me\"",
+        script: "Sir/Ma'am, I really wish I could. The reason I cannot is that the flight tickets we book today are at today's airline rate — we don't have stock from last year. I genuinely cannot offer last year's flight price because that flight no longer exists at that price. What I can do is make sure you get the early bird offer — that brings ₹5,000 off per person."
+      }
+    ],
+    bullets: [
+      "Acknowledge directly: \"You're right, last year was different\" — don't be defensive",
+      "Two reasons: (1) trip is longer (6 → 7 days, extra full day) (2) flight prices up ₹15-20K per person",
+      "Land package itself up only slightly — flight is the bigger jump",
+      "We don't markup flights — pass through at airline rate",
+      "June to October = high season for Bali — flights stay on higher side",
+      "This is the best price we've seen in the last couple of weeks",
+      "Early bird offer brings total down by ₹5K per person"
+    ],
+    warnings: [
+      "If \"I'll wait for prices to drop\" → flights have only gone up historically (rupee-dollar). Lower prices only Nov-Feb (rainy season) but bad experience. Book now = best price + early bird.",
+      "If \"honor last year's price\" → genuine empathy + early bird as compromise"
+    ],
+    templateIds: ["A1", "B4"]
   },
+
   {
-    id: 3, title: "Discuss with family / children", category: "Family", freq: "544 mentions",
-    says: ["Let me talk to my son/daughter", "My children need to check", "My son handles finances"],
-    means: "For Indian seniors, almost always genuine. Adult children involved ~70% of the time. Child worries about safety, money, legitimacy.",
-    response: `<p><em>“Of course, Sir/Ma'am. Many of our travelers discuss with their family before booking.”</em></p>
-<p><em>“Would it help if I send you a detailed message on WhatsApp with all the information — pricing, what is included, safety measures, our company details? You can share it directly in your family group.”</em></p>
-<p><em>“And if your son or daughter has any questions, I am happy to speak with them directly. They can call me anytime.”</em></p>
-<p><span class="sub">If very warm, family is only blocker</span><em>“Sir/Ma'am, I can hold your seat for 3–4 days without any payment — so while you discuss, the seat does not go to someone else.”</em></p>
-<p><span class="sub">Probe gently</span><em>“Is there anything specific your children are concerned about? Sometimes I can help you explain things to them — safety measures, the tour manager, the cancellation policy.”</em></p>`,
-    donots: ["Say \"you don't need permission\"", "Ask for child's number (let them offer)", "Say \"book now, tell them later\""],
-    whatsapp: `Namaste [Name] Sir/Ma'am,
-
-Thank you for your interest in our Bhutan trip. Here are details you can share with your family:
-
-✅ *About ElderGo*
-Senior-only group tours. 15–20 travelers per group.
-15+ tours to 7 countries in the last year.
-7 out of 10 travelers come back.
-Office: BHIVE Workspace, Kudlu Gate, Bangalore.
-GSTIN: 32AAICE5592N1Z5 | www.eldergo.in
-
-✅ *Bhutan Trip — 7 May 2026*
-7 days / 7 nights | All-inclusive: ₹72,000 per person (early bird)
-Flights: ~₹25,000 per person | Total: ~₹97,000 per person
-
-✅ *Safety*
-Tour manager from India on every trip. Small group (15–20).
-4-star hotels. All meals.
-
-✅ *Cancellation*
-100% refund if cancelled 30+ days before trip.
-
-🎥 [1–2 testimonial videos]
-📎 [Itinerary PDF]
-
-If your family has questions, they can call me at [number].
-
-[Rep Name] | ElderGo Senior Tours`
+    id: 3, title: "Not the right time / I'm busy", tier: 1, complexity: "complex", category: "Timing",
+    oneLiner: "Filter intent in one question: \"Are you planning to travel somewhere this year?\" Then save warm leads, release cold ones cleanly.",
+    says: [
+      "I'm driving right now",
+      "I'm in a meeting",
+      "This isn't a good time",
+      "Can you call me later?",
+      "I'm busy, call back tomorrow"
+    ],
+    means: "This typically fires very early in the call, often before the rep has had a chance to introduce Bali. The rep doesn't yet know if the customer is interested. The clarify question must work without assuming context the customer doesn't have. Frame the question around general travel intent, not Bali specifically.",
+    acknowledge: "No problem at all, Sir/Ma'am.",
+    clarify: "Just one quick thing, Sir/Ma'am — are you planning to travel somewhere this year? If there is no plan, it's probably best that I don't disturb you again.",
+    paths: [
+      {
+        label: "If yes, planning to travel (any destination)",
+        script: "Got it, Sir/Ma'am. When is a good time for me to call back? Later today or tomorrow — what works for you?\n\n[Get specific day + time. Push for \"tomorrow at 6 PM\" or \"Saturday morning around 10\" — not vague]\n\nPerfect, I'll call you on [day] at [time]. I'll also send a brief message on WhatsApp now so you have my contact."
+      },
+      {
+        label: "If no plans this year / don't call again",
+        script: "Understood, Sir/Ma'am. Sorry to disturb you. Can I share the link to join our WhatsApp community so that you can stay updated about future trips? You can leave anytime if you change your mind."
+      },
+      {
+        label: "If vague (\"Maybe, I don't know\")",
+        script: "Sir/Ma'am, no pressure at all. Can I send you a few details on WhatsApp so you can look at them whenever you have time? If something interests you, just reply."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"No problem at all, Sir/Ma'am\" — don't push",
+      "Clarify: \"Are you planning to travel somewhere this year?\" (general travel, not Bali specifically)",
+      "If yes → get specific callback day + time (not vague). Note any destination they mention.",
+      "If no → polite exit, offer WhatsApp community link",
+      "If vague → offer to send details on WhatsApp now",
+      "If driving → keep under 30 seconds total, get yes/no on travel intent, end call",
+      "If \"yes but not Bali\" → log destination + month, treat as future-tour lead"
+    ],
+    warnings: [
+      "Never push a busy customer — \"only 2 minutes\" feels disrespectful",
+      "Never accept \"I'll call you back\" without committing to a specific time",
+      "Never assume Bali interest at this stage — context not built yet",
+      "If callback scheduled, call exactly at agreed time — never late"
+    ],
+    templateIds: ["A1", "A2"]
   },
+
   {
-    id: 4, title: "Discuss with wife/husband", category: "Family", freq: "Part of 544",
-    says: ["Let me talk to my wife/husband", "We decide together", "My wife is not sure"],
-    means: "Co-decision making, not permission. If you get both on the next call, conversion probability doubles.",
-    response: `<p><em>“Of course, Sir/Ma'am. It is always better to decide together.”</em></p>
-<p><em>“Would it help if I call back when both of you are free? That way I can explain everything together. When would be a good time — maybe [day] morning or evening?”</em></p>
-<p><span class="sub">If they agree to joint call</span>Get specific day + time. On callback, focus on 4 moments and safety.</p>
-<p><span class="sub">If "I'll explain myself"</span><em>“No problem. I will send everything on WhatsApp — day-by-day plan, pricing, and some videos. You can go through it together.”</em></p>`,
-    donots: null,
-    whatsapp: `Namaste [Name] Sir/Ma'am,
-
-Here are details so you and your [wife/husband] can go through together:
-
-📎 [Itinerary PDF]
-🎥 [2 testimonial videos — ideally couples]
-
-Early bird: ₹72,000 per person.
-For both of you: about ₹18,000 per day for two people.
-
-I will call on [day] at [time].
-
-[Rep Name] | ElderGo Senior Tours`
+    id: 4, title: "I'll call you back", tier: 1, complexity: "simple", category: "Exit",
+    oneLiner: "99% never call back. Get one piece of info first, then send WhatsApp + don't push for callback.",
+    says: [
+      "I'll call you back",
+      "Let me think about it and call you",
+      "I have your number, I'll reach out",
+      "Don't call me, I'll call you"
+    ],
+    means: "This is the polite version of \"no.\" Almost no one who says this calls back. The rep needs to extract one piece of information before the call ends — otherwise the lead is gone. Once captured, don't push for a callback time — instead send WhatsApp, which is much lower-friction than a callback they were never going to make.",
+    acknowledge: "Of course, Sir/Ma'am. I will not call unless you want me to.",
+    clarify: "Just one thing I wanted to ask, Sir/Ma'am — are you planning to travel this year, or is it for next year or later?",
+    paths: [
+      {
+        label: "After getting the info",
+        script: "Got it, Sir/Ma'am. I'll send the trip details on WhatsApp now — take your time, no rush. Whenever you're ready, just reply on WhatsApp or call me at [Rep Phone]. Have a good day, Sir/Ma'am."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Of course — I will not call unless you want me to\"",
+      "One quick question before ending: travel history OR planning this year vs next",
+      "Close gracefully: send WhatsApp + customer replies whenever ready"
+    ],
+    warnings: [
+      "Do NOT push for a callback time — they won't honor it",
+      "Just ONE quick question, not multiple"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 5, title: "Price is too high", category: "Budget", freq: "343 mentions",
-    says: ["₹1 lakh is too much", "Beyond my budget", "I was thinking ₹50–60K", "Can't spend this much"],
-    means: "Three situations: (A) Can afford but needs value justification, (B) Comparing to competitor, (C) Genuinely cannot afford.",
-    response: `<p><span class="sub">Clarify first</span><em>“I understand, Sir/Ma'am. May I ask — is it the total amount that feels high, or were you comparing with another package?”</em></p>
-<p><span class="sub">Situation A (total feels high)</span><em>“Let me put it this way. This is about ₹10,700 per person per day. For that you get a 4-star hotel, three meals, transport, guide, everything. A good hotel room alone costs ₹5,000–6,000 per night. Also, booking advance is only ₹15,000 per person. Rest in 3 easy installments.”</em></p>
-<p><span class="sub">Situation B (comparing competitor)</span>Use the competitor reframe from the pitch.</p>
-<p><span class="sub">Situation C (genuinely cannot afford)</span><em>“If Bhutan does not fit the budget right now, we also have trips at lower price points — domestic trips starting from ₹35,000–45,000 per person. Would you like details?”</em> (Check with product team first for availability.)</p>`,
-    donots: ["Give any discount", "Say \"it's actually very cheap\"", "Push harder on same trip if they genuinely cannot afford"],
-    whatsapp: `Namaste [Name] Sir/Ma'am,
-
-Quick breakdown of what is covered in ₹72,000 per person:
-
-🏨 7 nights 4-star hotels
-🍽️ Breakfast, lunch, dinner — all days
-🚌 AC transport throughout
-👨‍✈️ Tour manager from India
-🎫 All entry tickets
-💰 Bhutan SDF fee (₹6,000 per person)
-🛁 Hot stone bath (worth ₹3,500 per person)
-🏡 Farmhouse experience (worth ₹2,500 per person)
-
-Booking advance: only ₹10,000 per person. Rest in 3 installments.
-
-📎 [Itinerary PDF]
-
-[Rep Name] | ElderGo Senior Tours`
+    id: 5, title: "Send on WhatsApp, I'll see and call you", tier: 1, complexity: "simple", category: "Exit",
+    oneLiner: "Soft brush-off. Get one info, set soft expectation of follow-up call in 2-3 days, send WhatsApp within 5 minutes.",
+    says: [
+      "Just WhatsApp me the details",
+      "Send everything on WhatsApp, I'll go through it",
+      "Don't talk now, just send the info",
+      "I'll see on WhatsApp and let you know"
+    ],
+    means: "This is a soft brush-off dressed as engagement. The customer wants information and the rep gone. 70% never reply. The rep should capture one piece of info before sending, set a soft expectation about checking back in a couple of days, and send WhatsApp within 5 minutes — when interest is highest.",
+    acknowledge: "Of course, Sir/Ma'am. I'll send everything on WhatsApp.",
+    clarify: "Just one thing I wanted to ask, Sir/Ma'am — are you planning to travel this year, or is it for next year or later?",
+    paths: [
+      {
+        label: "Set soft expectation",
+        script: "I'll send the trip details now — itinerary, pricing, real customer videos, everything. After you've had a chance to look through it, I'll check back with you in a couple of days, just to see if you have any questions. Is that okay?"
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Of course — I'll send everything on WhatsApp\"",
+      "One quick question before sending: travel intent / rough timing",
+      "Set soft expectation: \"I'll check back in a couple of days just to see if you have any questions\"",
+      "Send WhatsApp within 5 minutes — interest is highest right after the call"
+    ],
+    warnings: [
+      "Don't say \"I'll send the details and you call me when ready\" — that gives the customer permission to disappear",
+      "If customer firmly says \"don't call\" → respect, treat like #4"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 6, title: "Not comfortable with group / strangers", category: "Group Fear", freq: "326 mentions",
-    says: ["Don't want unknown people", "Who else is in the group?", "I don't like groups"],
-    means: "Imagining a noisy bus with 40 random people. Fear of loss of control.",
-    response: `<p><em>“I completely understand, Sir/Ma'am. Many of our travelers felt the same way before their first trip.”</em></p>
-<p><em>“Our groups are small — 20 to 25 seniors. Everyone is a senior, 55 and above. No youngsters. Same age, same pace.”</em></p>
-<p><em>“30% of our travelers come alone — and they always tell us by Day 2, the group felt like old friends.”</em></p>
-<p><span class="sub">If they want private trip</span>Go to Objection #19.</p>`,
-    donots: null,
-    whatsapp: `Here is a video — see the kind of people who travel with us.
-
-🎥 [Group testimonial video]
-
-Our groups: 15–20 seniors only. Many come alone and make great friends.
-
-📎 [Itinerary PDF]`
+    id: 6, title: "Discuss with family / children", tier: 1, complexity: "complex", category: "Family",
+    oneLiner: "Process step, not resistance. Probe for the specific concern. Hold seat 3-4 days. Lock 3-day callback.",
+    says: [
+      "Let me talk to my son/daughter",
+      "My children need to check",
+      "I'll discuss with the family and let you know",
+      "Let me confirm with my family first"
+    ],
+    means: "For senior travelers in India, most travel decisions go through children. This is not resistance — it's how the family operates. The rep's job is to make the family conversation succeed: give the right information, in the right format. Never frame this as something to bypass.",
+    acknowledge: "Of course, Sir/Ma'am. Many of our travelers discuss with their family before booking — this is completely normal.",
+    clarify: "Just so I send the right information — is there anything specific your son/daughter usually checks? Like cost, safety, the company itself?",
+    paths: [
+      {
+        label: "If they share the concern (cost/safety/trust)",
+        script: "Got it, Sir/Ma'am. Let me send a detailed message on WhatsApp that covers exactly that. Your son/daughter can read through it, and if they have any questions, I am happy to speak with them directly — just share their number with me, or they can call me at [Rep Phone].\n\nSir/Ma'am, I will hold a seat for you for the next 3-4 days while you discuss with your family. No payment needed — just so you don't lose the seat in case you decide to go ahead."
+      },
+      {
+        label: "If they don't share specific concern",
+        script: "Of course, Sir/Ma'am. Let me send a complete message on WhatsApp — all the trip details, the inclusions, our company details, safety information. Your son/daughter can read through everything and ask me anything. Just share their number if you'd like, or they can reach me at [Rep Phone].\n\nI will hold a seat for you for the next 3-4 days while you discuss."
+      },
+      {
+        label: "If they say \"let me discuss, I'll explain it myself\"",
+        script: "Of course, Sir/Ma'am. I will send all the details on WhatsApp anyway, so you have it ready when you discuss. If your family has any questions you can't answer, just forward our number — happy to speak with them directly.\n\nI will hold a seat for you for the next 3-4 days. May I check back with you on [day] around [time] just to see what your family said?"
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Many of our travelers discuss with family — this is completely normal\"",
+      "Clarify: \"Anything specific your son/daughter usually checks? Cost, safety, the company?\"",
+      "Send detailed WhatsApp covering whichever concern they raised",
+      "Offer to speak with the child directly if number shared",
+      "Hold seat for 3-4 days, no payment needed",
+      "Lock specific callback: \"May I check back on [day] around [time]?\"",
+      "If customer offers child's number → call within 24 hours, ideally same day. Lead with safety/legitimacy, NOT destination"
+    ],
+    warnings: [
+      "If customer says \"don't call my children\" → respect, send to customer only",
+      "Never ask for child's number aggressively — let customer offer",
+      "Never say \"book now, tell them later\"",
+      "Never bypass the customer to call their family without permission"
+    ],
+    templateIds: ["A1", "B1"]
   },
+
   {
-    id: 7, title: "Want to travel with friends", category: "Group Fear", freq: "Part of 326",
-    says: ["My friends need to agree", "If 4–5 friends say yes, I'll go"],
-    means: "Want comfort of familiar faces. But friends will keep postponing forever.",
-    response: `<p><em>“Your friends are welcome. I can call them directly, or you can forward the WhatsApp message.”</em></p>
-<p><em>“But honestly — when people wait for 4–5 friends to agree, it takes very long. What many do is join first, then tell friends. Once friends see the photos, they join the next trip.”</em></p>
-<p><span class="sub">If "let me check with friends"</span><em>“How much time — 3–4 days? I can hold [X] seats without payment until [date].”</em></p>`,
-    donots: null,
-    whatsapp: `Here are details you can share with your friends:
-
-📎 [Itinerary PDF] | 🎥 [Video]
-
-Seats limited to 20. Currently [X] available.
-
-If friends want to know more: [number]`
+    id: 7, title: "Discuss with spouse", tier: 1, complexity: "complex", category: "Family",
+    oneLiner: "Push for a joint callback — hearing the pitch together converts much higher than one explaining to the other.",
+    says: [
+      "Let me talk to my wife/husband",
+      "We decide together",
+      "I need to check with my spouse first",
+      "My husband/wife handles these things"
+    ],
+    means: "Spouse decisions are lateral, not hierarchical — this is a joint decision, not asking for permission. The single best move is to get both spouses on the next call. Couples who hear the pitch together convert much higher than those where one tries to relay it.",
+    acknowledge: "Of course, Sir/Ma'am. Most of our couples decide together — it makes complete sense.",
+    clarify: "Would it help if I call back when both of you are free? That way I can explain everything together, answer any questions you both have, and you don't have to remember every detail to share later.",
+    paths: [
+      {
+        label: "If they agree to a joint call",
+        script: "Wonderful, Sir/Ma'am. When are both of you usually free together — evening or weekend morning? I can call at a time that works for both.\n\n[Get specific day + time. Both spouses must be available.]\n\nPerfect. I'll call on [day] at [time]. I'll also send a brief message on WhatsApp now with the basic trip details — you can both glance at it before the call if you like."
+      },
+      {
+        label: "If they prefer to explain themselves",
+        script: "Of course, Sir/Ma'am. Let me send you the full trip details on WhatsApp — pricing, what's included, photos from past trips, and a couple's testimonial video. You can show it to your wife/husband when you get a chance, and we can discuss any questions on our next call.\n\nMay I check back with you on [day] around [time] once you've had a chance to discuss?"
+      },
+      {
+        label: "If they want to discuss alone first",
+        script: "Got it, Sir/Ma'am. Take your time. I'll send all the details on WhatsApp so you can both look through them together. May I check back with you on [day] around [time] just to see what you both decided?\n\nI'll hold a seat for you for the next 3-4 days, no payment needed."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Most couples decide together — makes complete sense\"",
+      "Push for joint callback: \"Would it help if I call back when both of you are free?\"",
+      "If joint call agreed → get specific day + time, lock both spouses",
+      "If \"I'll explain myself\" → send full WhatsApp + couple video + 3-day callback",
+      "Hold seat for 3-4 days, no payment needed",
+      "Send couple video (Ian & Marlene D'Cunha) + Bali destination video",
+      "If only one spouse engaged → gently push joint callback for next call"
+    ],
+    warnings: [
+      "Never say \"you can decide, don't worry about your wife/husband\" — disrespects joint decision",
+      "Never push for spouse's number — couples share phones",
+      "Never accept \"I'll convey it\" without scheduling follow-up"
+    ],
+    templateIds: ["A1", "B2"]
   },
+
+  /* ===== TIER 2 — COMMON (8 objections) ===== */
+
   {
-    id: 8, title: "Health concerns", category: "Practical", freq: "144 mentions",
-    says: ["Knee pain, can't walk much", "Heart patient", "BP and diabetes", "Had surgery"],
-    means: "Two situations: (A) Want to travel but worried about fitness. (B) Genuine medical risk.",
-    response: `<p><span class="sub">Understand severity first</span><em>“Thank you for sharing. Your health is most important. Can you tell me more — what is the concern? Does your doctor say you can travel?”</em></p>
-<p><span class="sub">If manageable (knee, controlled BP/diabetes)</span><em>“Many of our travelers have similar concerns. No heavy climbing. Comfortable bus, regular stops. Tour manager is first-aid trained. We have had travelers 75+ complete this trip comfortably. But please check with your doctor.”</em></p>
-<p><span class="sub">If serious (recent surgery, doctor against)</span><em>“Your health comes first. We run trips every month. When your doctor gives go-ahead, call me and I will book you.”</em></p>`,
-    donots: ["Dismiss the concern", "Push against medical advice", "Guarantee medical safety"],
-    whatsapp: `Our trips are designed for senior comfort:
-
-✅ No heavy climbing
-✅ Comfortable AC bus, regular stops
-✅ Tour manager first-aid trained
-✅ Medical kit on every trip
-
-Please check with your doctor. If fit to travel, we will take full care.`
+    id: 8, title: "Health concerns", tier: 2, complexity: "complex", category: "Practical",
+    oneLiner: "Quick judgment: routine condition (BP/diabetes/knee) → straight reassurance. Unfamiliar/serious → ask gently about doctor.",
+    says: [
+      "I have knee pain",
+      "BP and diabetes",
+      "I'm a heart patient",
+      "My doctor said no long travel",
+      "I have arthritis",
+      "I had surgery recently"
+    ],
+    means: "The rep makes a 1-2 second judgment call based on what the customer said. For routine conditions (BP, diabetes, mild arthritis, knee pain), don't ask about doctors — go straight to Bali-specific reassurance. For unfamiliar or serious-sounding conditions (recent surgery, heart patient, doctor restriction), gently probe before responding. Never say \"don't worry, you'll be fine\" without knowing severity.",
+    acknowledge: "Thank you for sharing, Sir/Ma'am. Your comfort during the trip is the most important thing.",
+    clarify: null,
+    paths: [
+      {
+        label: "If common condition (BP, diabetes, knee pain, mild arthritis)",
+        script: "Sir/Ma'am, the good thing about Bali is — it's all flat coastal terrain, no altitude, no extreme cold. Our drives are AC and we make regular stops. Our tour manager is first-aid trained and carries a medical kit. We can adjust meals for [diabetes/dietary needs]. Many of our travelers with similar concerns have completed Bali comfortably."
+      },
+      {
+        label: "If unfamiliar / serious-sounding (surgery, heart, doctor restriction)",
+        script: "If you don't mind sharing, Sir/Ma'am — what was the [surgery/condition]? And has your doctor said you are okay to travel?\n\n[Listen. Then route to either Tier 1 reassurance if doctor approves, OR Tier 2 redirect if doctor advised against.]"
+      },
+      {
+        label: "Tier 2 redirect (doctor advised against travel)",
+        script: "Sir/Ma'am, your health comes first — always. We run trips every couple of months. Whenever your doctor gives the go-ahead, just let me know. I'll share our WhatsApp community link so you can see upcoming trips and plan when you're ready."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Your comfort during the trip is the most important thing\"",
+      "If common (BP/diabetes/knee/mild arthritis) → skip doctor question, go straight to Bali reassurance: flat coastal terrain, no altitude, AC transport, medical kit, dietary adjustments",
+      "If unfamiliar/serious (surgery/heart/doctor restriction) → probe gently: \"If you don't mind sharing — what was it? And has your doctor said you're okay to travel?\"",
+      "If doctor approves → Tier 1 reassurance",
+      "If doctor advised against → respect completely, send community link, mark for future",
+      "Bali-specific points: no heavy climbing, no altitude, calm pace, comfortable hotel, dietary flexibility"
+    ],
+    warnings: [
+      "Never say \"don't worry, you'll be fine\" without first knowing severity",
+      "Never push against medical advice",
+      "Never guarantee health outcomes"
+    ],
+    templateIds: ["A1", "A2"]
   },
+
   {
-    id: 9, title: "No passport / passport expired", category: "Practical", freq: "",
-    says: ["Don't have passport", "Passport expired"],
-    means: "Positive signal — they're interested enough to think about logistics.",
-    response: `<p><em>“No problem at all, Sir/Ma'am. Bali requires a passport — Voter ID will not work for Bali. But getting a passport is easy now. Tatkal service takes about 1 to 2 weeks. Our trip is more than 6 weeks away, so there is plenty of time.”</em></p>
-<p><span class="sub">If passport expired</span><em>“Renewal through Tatkal is also 1 to 2 weeks. I can guide you on the documents needed.”</em></p>
-<p><span class="sub">If they ask about Voter ID</span><em>“Voter ID works only for Bhutan. For Bali and other international destinations, passport is mandatory. Indian government rules.”</em></p>`,
-    donots: null,
-    whatsapp: `For Bali, a passport is required (Voter ID will not work).
-
-Getting a passport is easy:
-✅ Tatkal service: 1-2 weeks
-✅ Trip is 6+ weeks away — plenty of time
-
-I can share the document checklist if helpful.
-
-📎 [Itinerary PDF]`
+    id: 9, title: "Is this real? / Trust", tier: 2, complexity: "complex", category: "Trust",
+    oneLiner: "Welcome the question. 3-tier proof stack: customer videos first, company verification second, past traveler call as last resort.",
+    says: [
+      "How do I know you are real?",
+      "There are so many travel scams these days",
+      "My friend lost money to a similar company",
+      "How do I trust you with ₹1.3 lakh?"
+    ],
+    means: "For cold leads, trust is the #1 invisible barrier. The rep welcomes the question (it shows the customer is seriously evaluating) and drops a 3-tier proof stack in priority order: real customer videos first, then company verification, then past traveler call held back as the final card. Tier 3 is offered only when the customer is interested but trust is the last hurdle — we can't do this for every lead.",
+    acknowledge: "Sir/Ma'am, that's a completely fair question — and I'm happy you brought it up on the call.",
+    clarify: null,
+    paths: [
+      {
+        label: "Tier 1 — Real customer videos",
+        script: "Sir/Ma'am, the first thing I will do is send you video testimonials from real, actual customers who have traveled with us. These are not paid actors — they are real seniors, standing at the actual tour locations in Bali, Bhutan, Vietnam, talking about their experience. They are all posted on our YouTube channel. I will share the channel link with you on WhatsApp — you can go through all the videos, all the reviews, all the feedback at your own pace."
+      },
+      {
+        label: "Tier 2 — Company verification",
+        script: "Second — we are a registered private limited company. We have a GST number — I will share it on WhatsApp after this call, you can verify it on the government portal directly. We are rated 4.96 on Google with many real reviews — I'll share the Google page link as well. Our office is at BHIVE Workspace, Kudlu Gate, Bangalore. If you would like to visit, we are open Monday to Friday. And if you are not in Bangalore, we can do a quick WhatsApp video call so you can see our office and meet the team."
+      },
+      {
+        label: "Tier 3 — Past traveler call (only if customer is interested but trust is the last hurdle)",
+        script: "Sir/Ma'am, one more thing — if everything else looks good and the only thing holding you back is trust, I can do something different. I can arrange a phone call with one of our past travelers — a real senior who has traveled with us. They can spend a few minutes with you and share their honest experience directly. That way you are not just hearing from me, you are hearing from someone who has actually traveled. Just let me know if that would help."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Completely fair question — happy you brought it up on the call\"",
+      "Tier 1 — Real customer videos: YouTube channel with actual seniors at tour locations. Share link on WhatsApp.",
+      "Tier 2 — Company verification: Registered private limited company, 4.96 on Google (share link), GST shared on WhatsApp after call (verifiable on government portal), office at BHIVE Kudlu Gate (Mon-Fri), video call option",
+      "Tier 3 — Past traveler call (only if customer is interested but trust is the last hurdle): Arrange phone call with previous senior who has traveled with us"
+    ],
+    warnings: [
+      "Do not say the GST number on call — share on WhatsApp only",
+      "Do not say company legal name on the call — just \"registered private limited company\"",
+      "Tier 3 is volume-limited — offer only when trust is the deciding factor"
+    ],
+    templateIds: ["A1", "B3"]
   },
+
   {
-    id: 10, title: "Trust / is this real?", category: "Trust", freq: "101 mentions",
-    says: ["How do I know you are real?", "So many scams", "Is this genuine?"],
-    means: "Afraid of sending money to strangers. Cure is PROOF.",
-    response: `<p><em>“Very fair concern, Sir/Ma'am. Let me share a few things. We are a registered company in Bangalore — BHIVE Workspace, Kudlu Gate. GST number 32AAICE5592N1Z5 — you can verify on the government portal. Website: eldergo.in.”</em></p>
-<p><em>“But the best proof is from people who traveled with us. I will send you video testimonials — real seniors sharing their experience.”</em></p>`,
-    donots: null,
-    whatsapp: `✅ *Company*
-Eldaura Senior Adventures Pvt Ltd
-Office: BHIVE Workspace, Kudlu Gate, Bangalore
-GST: 32AAICE5592N1Z5 | www.eldergo.in
-
-✅ *Bank (for verification)*
-Axis Bank — Corporate Current Account
-Account: Eldaura Senior Adventures Pvt Ltd
-(Company account, never personal)
-
-✅ *Google Reviews* [Link]
-
-🎥 [Video 1] | 🎥 [Video 2]
-📎 [Itinerary PDF]`
+    id: 10, title: "Cancellation policy", tier: 2, complexity: "simple", category: "Practical",
+    oneLiner: "Customers who aren't interested don't ask this. Lead with the strongest part (40+ days = 100%), then nudge toward booking.",
+    says: [
+      "What if I have to cancel?",
+      "What's your refund policy?",
+      "Can I get my money back if something comes up?",
+      "What happens if I fall sick?",
+      "Until when can I cancel?"
+    ],
+    means: "Customers who aren't interested don't ask about cancellation — so this is actually a sign the customer is close to deciding. The rep should treat the question positively, lead with the most generous part of the policy, and nudge toward booking after delivering. Most senior customers just want reassurance that they have a safe exit.",
+    acknowledge: "Great question, Sir/Ma'am — let me walk you through it.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, if you cancel 40 days or more before the trip, you get a 100% refund on the package. That gives you plenty of time to plan — almost 6 weeks before departure.\n\nIf something comes up closer to the trip — between 30 to 39 days, it's a 70% refund. 20 to 29 days, 50%. 10 to 19 days, 25%. Less than 10 days, no refund on the package.\n\nFor flights, refund is as per the airline policy. Travel insurance is included for travelers below 70.\n\nSo booking now is actually very low risk, Sir/Ma'am — you have full refund if anything changes within 40 days. And the early bird offer is still available, so you save ₹5,000 per person by booking now."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Great question — let me walk you through it\"",
+      "Lead with the strongest: 40+ days = 100% refund (~6 weeks before trip)",
+      "Then ladder: 30-39 days = 70%, 20-29 = 50%, 10-19 = 25%, <10 = no refund on package",
+      "Flight refund as per airline. Travel insurance included for travelers below 70.",
+      "Close: \"Booking now is low risk — full refund within 40 days, plus early bird saves ₹5K/person\""
+    ],
+    warnings: [
+      "Treat this positively — it's a sign the customer is close to deciding, not a problem",
+      "Lead with the most generous (40+ = 100%), don't open with the harsh end"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 11, title: "Want to visit office", category: "Trust", freq: "",
-    says: ["Can I see your office?", "I want to meet someone"],
-    means: "Trust objection in disguise. Want to confirm you are real.",
-    response: `<p><span class="sub">Bangalore customer</span><em>“Of course. BHIVE Workspace, AKR Tech Park, Kudlu Gate. Monday to Saturday, 10 AM to 6 PM. Which day works?”</em> → Get specific date.</p>
-<p><span class="sub">Non-Bangalore</span><em>“Our office is in Bangalore, so visiting may not be easy. I will send company details, office photos, and testimonials. You can check Google reviews. We can also do a short WhatsApp video call so you can see our office. Would that help?”</em></p>`,
-    donots: null,
-    whatsapp: `📍 BHIVE Workspace, Block B, AKR Tech Park
-Kudlu Gate, Bangalore - 560068
-
-🕐 Mon-Sat, 10 AM - 6 PM
-
-GST: 32AAICE5592N1Z5 | www.eldergo.in | [Google Reviews link]
-
-Not in Bangalore? We can do a WhatsApp video call.`
+    id: 11, title: "Travel later this year / next year", tier: 2, complexity: "simple", category: "Timing",
+    oneLiner: "Capture timing window, soft Bali plug for current batch, send community link, mark for future.",
+    says: [
+      "Maybe after Diwali",
+      "I'm thinking next year",
+      "After my retirement",
+      "Let me get through this year first",
+      "Sometime later, not now"
+    ],
+    means: "Not a price or trust objection — purely timing. The customer is genuinely interested but isn't ready for a near-term trip. Pushing them to commit to June will fail. Capture timing window, plant one soft mention of the current batch with early bird, then keep them in our orbit via WhatsApp community.",
+    acknowledge: "Of course, Sir/Ma'am — completely understand.",
+    clarify: "Just so I note it correctly — when you say later, are you thinking around Diwali, early next year, or further down?",
+    paths: [
+      {
+        label: "Note + soft plug",
+        script: "Got it, Sir/Ma'am. I'll note that — [timing window] for Bali. Whenever we open a batch around that time, I will personally call you.\n\nJust one quick thing — our June batch is still open with an early bird offer of ₹5,000 off per person. If something changes and June works for you, just give me a call. Otherwise, no pressure at all.\n\nI'll also share our WhatsApp community link so you can see our upcoming trips and stay connected."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Completely understand\"",
+      "Capture timing window: Diwali / early next year / after retirement / etc.",
+      "Soft Bali plug: June batch open, ₹5,000 early bird — one mention only",
+      "Send WhatsApp community link"
+    ],
+    warnings: [
+      "Don't try to convince them to commit to June if they've said later",
+      "Don't promise specific batches for their preferred timing — we don't have the calendar yet"
+    ],
+    templateIds: ["A2"]
   },
+
   {
-    id: 12, title: "Want a local company", category: "Trust", freq: "",
-    says: ["I prefer a local company", "Don't you have an office in Delhi?"],
-    means: "Want accessibility — someone nearby if something goes wrong.",
-    response: `<p><em>“I understand. We have travelers from Delhi, Mumbai, Chennai — all across India. Everyone gets same support over phone and WhatsApp.”</em></p>
-<p><em>“And the most important thing — once the trip starts, our tour manager from India travels WITH you. A local office stays in the city while you are in Bhutan. Our person comes with you.”</em></p>`,
-    donots: null,
-    whatsapp: null
+    id: 12, title: "Dates don't work", tier: 2, complexity: "simple", category: "Timing",
+    oneLiner: "Capture preferred month. The only legitimate date pivot we can offer right now is Bali Comfort (1-7 July).",
+    says: [
+      "I can't travel on those dates",
+      "That's during my [grandson's exam / wedding / festival]",
+      "I'm not free in June",
+      "Can you do a different date?"
+    ],
+    means: "Don't try to convince senior travelers to change their dates — they have firm commitments. Capture preferred month. The only legitimate date pivot we can offer right now is Bali Comfort (1-7 July). For any other month preference, note it and send community link.",
+    acknowledge: "No problem at all, Sir/Ma'am.",
+    clarify: "May I ask — which month works best for you?",
+    paths: [
+      {
+        label: "If July works",
+        script: "Sir/Ma'am, we actually have a Bali Comfort batch starting 1st July, returning on the 7th. Would those dates suit you better? It's a slightly different package — would you like me to share the details on a separate call?"
+      },
+      {
+        label: "Any other month",
+        script: "Got it, Sir/Ma'am. I'll note that down — [month] preference for Bali. Whenever we open a batch around that time, I will personally call you. I'll also share our WhatsApp community link so you can stay updated on upcoming trips."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"No problem at all\"",
+      "Probe: \"Which month works best for you?\"",
+      "If July → schedule separate callback for Bali Comfort pitch",
+      "Any other month → log preference, send community link"
+    ],
+    warnings: [
+      "Don't try to convince them to change their dates",
+      "Don't promise specific destinations or batches we haven't opened",
+      "If July → don't pitch Bali Comfort on the same call — schedule separate callback"
+    ],
+    templateIds: ["A2", "B5"]
   },
+
   {
-    id: 13, title: "Dates don't work", category: "Timing", freq: "",
-    says: ["Can't travel on those dates", "Wife didn't get leave", "Available only in July"],
-    means: "Genuine scheduling conflict. NOT a rejection. They want the destination, not this departure.",
-    response: `<p><em>“No problem, Sir/Ma'am. Which month works best? I will check what trips we have.”</em></p>
-<p><span class="sub">If another batch available</span><em>“We have another Bhutan batch in [month]. Would that work?”</em></p>
-<p><span class="sub">If nothing matches</span><em>“I will note your preferred dates and call you when we announce a matching trip. Adding you to our WhatsApp community.”</em> → Mark WJFT.</p>`,
-    donots: null,
-    whatsapp: null
+    id: 13, title: "Group / strangers", tier: 2, complexity: "complex", category: "Group Fear",
+    oneLiner: "This is fear, not a real objection. Paint the actual picture: small group, same-age peers, by Day 2 they feel like old friends.",
+    says: [
+      "I don't like traveling with strangers",
+      "Who else will be in the group?",
+      "Will I know anyone?",
+      "What if I don't get along with the others?"
+    ],
+    means: "This is fear, not a real objection. Senior customers are imagining the worst — loud youngsters, mismatched personalities, awkward dinners. The fix is to paint a different picture fast. Don't argue or try to convince. Just describe the actual experience: small group, same-age peers, by Day 2 they feel like old friends.",
+    acknowledge: "I understand, Sir/Ma'am — many of our travelers feel the same before their first trip.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, our groups are small — 20 to 25 people, all 55 and above. No youngsters, no families with children. Around 30% of our travelers come alone, like you might. They always tell us by Day 2, the group feels like old friends. Same stage of life, same pace, same interests."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Many of our travelers feel the same before their first trip\"",
+      "Small group: 20-25 people, all 55+, no youngsters",
+      "30% come alone, by Day 2 group feels like old friends",
+      "Same stage of life, same pace, same interests",
+      "Send group video + solo traveler video on WhatsApp"
+    ],
+    warnings: [
+      "Don't argue with the fear — describe the actual experience",
+      "If customer pushes toward private/customized → that's #25 (Want private trip)"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 14, title: "Friend hasn't confirmed", category: "Social", freq: "",
-    says: ["My friend is interested but not confirmed", "I'll only go if my friend goes"],
-    means: "Want comfort of going with someone they know. Risk: friend never confirms, lead dies.",
-    response: `<p><em>“I can call your friend directly. Would you like to share their number?”</em></p>
-<p><em>“But one suggestion — if YOU are sure, confirm your seat. If your friend also confirms, great. If not, you still have a wonderful trip. 30% of our travelers come alone.”</em></p>
-<p><span class="sub">If "only if friend goes"</span><em>“How much time — 3–4 days? I can hold 2 seats without payment until [date].”</em></p>`,
-    donots: null,
-    whatsapp: null
+    id: 14, title: "Not interested (no reason)", tier: 2, complexity: "complex", category: "Exit",
+    oneLiner: "One probe only. Save warm leads (timing) or release cleanly (Bali doesn't suit). Don't ask twice.",
+    says: [
+      "Not interested",
+      "No thanks",
+      "I don't want to do this",
+      "Please don't call me"
+    ],
+    means: "The hardest objection because the customer hasn't told us why. Goal: extract one piece of information before they hang up — is it about timing, or about the trip itself? Once we know, we either save the lead (timing → mark for future) or let it go cleanly (trip itself → don't waste another call). One probe only. Don't ask twice.",
+    acknowledge: "Of course, Sir/Ma'am. Apologies for the call.",
+    clarify: "May I just ask one thing — is it that you are not planning to travel right now, or is it something specific about Bali that doesn't suit you?",
+    paths: [
+      {
+        label: "If timing-related (not planning travel right now)",
+        script: "Got it, Sir/Ma'am. Then I'll send you our WhatsApp community link — you can join, see what trips we run, and whenever you do plan to travel, just reply to me directly."
+      },
+      {
+        label: "If Bali doesn't suit them",
+        script: "Understood, Sir/Ma'am. May I ask — where all are you thinking of traveling? That way, whenever we open a trip to those destinations, I can call you back personally."
+      },
+      {
+        label: "If customer shuts down again",
+        script: "No problem at all, Sir/Ma'am. Sorry for the disturbance. Have a good day."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Of course — apologies for the call\"",
+      "One probe: \"Is it that you are not planning to travel right now, or something specific about Bali?\"",
+      "If timing → send community link, mark for future",
+      "If Bali doesn't suit → ask where else they want to travel + when, log in CRM, send community link",
+      "If full shutdown → graceful exit, do not call again"
+    ],
+    warnings: [
+      "Only ONE probe. Do not ask twice.",
+      "Never promise specific destinations or trips we don't have on the calendar",
+      "Don't argue, don't try to convince, don't justify the call"
+    ],
+    templateIds: ["A2", "A3"]
   },
+
   {
-    id: 15, title: "Food restrictions", category: "Practical", freq: "29 mentions",
-    says: ["Pure veg only", "Jain — no onion, no garlic", "Diabetic diet", "Will there be Indian food?"],
-    means: "Genuine practical concern. Dealbreaker if not handled.",
-    response: `<p><em>“We completely understand. On all trips, we pre-arrange Indian vegetarian meals. For Jain — no onion, no garlic. For diabetic — adjusted menu. Restaurants informed in advance.”</em></p>
-<p><em>“For Bali we always pre-arrange Indian vegetarian meals — there are excellent Indian restaurants in Kuta and elsewhere we have used many times.”</em></p>
-<p><span class="sub">If strict (cross-contamination)</span><em>“I want to be honest — we cannot guarantee a separate kitchen internationally. But meals are cooked and served separately. Our Jain travelers have been comfortable.”</em></p>`,
-    donots: ["Promise what you cannot deliver", "Dismiss the concern", "Make it sound difficult"],
-    whatsapp: null
+    id: 15, title: "Why are you calling after a year?", tier: 2, complexity: "simple", category: "Trust",
+    oneLiner: "Three points fast: (1) you filled enquiry June-October last year (2) calling about fresh batches (3) easy out if not interested.",
+    says: [
+      "Where did you get my number from?",
+      "Why are you calling me now, after so long?",
+      "I never asked for a call",
+      "How do you have my contact?"
+    ],
+    means: "This is data privacy suspicion, common with cold leads. The customer doesn't remember filling out the form. From their view, a stranger is calling with their personal info — feels intrusive. Three things, calmly: confirm the source, explain why now, give them the easy out. Most customers soften once they remember the original enquiry.",
+    acknowledge: "That's a fair question, Sir/Ma'am — let me explain quickly.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, about a year back — sometime between June and October last year — you had filled an enquiry form on our website or one of our ads, asking about our Bali tour. We had two Bali batches last year, but the timing didn't work for you, so you didn't travel with us. We are running fresh Bali batches this year, and I wanted to check if you're still interested.\n\nIf this is not a good time, or you've changed your plans, no problem at all — just say the word and I won't call again."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Fair question — let me explain quickly\"",
+      "Three points fast: (1) you filled enquiry form June-October last year for our Bali tour (2) you couldn't travel last year, calling about fresh batches this year (3) if not a good time, just say so and we won't call again",
+      "If customer accepts → continue with the pitch",
+      "If customer wants no calls → graceful exit, do not call again"
+    ],
+    warnings: [
+      "Don't get defensive. Don't argue. Don't justify excessively.",
+      "Always offer the easy out — \"just say the word and I won't call again\""
+    ],
+    templateIds: ["A1", "A3"]
   },
+
+  /* ===== TIER 3 — LESS COMMON (10 objections) ===== */
+
   {
-    id: 16, title: "Give me a discount", category: "Budget", freq: "",
-    says: ["Can you reduce the price?", "Give some discount", "If you reduce ₹5–10K, I'll book today"],
-    means: "Cultural negotiation. They CAN afford it. Want to feel they got the best deal.",
-    response: `<p><em>“Sir/Ma'am, our prices are fixed and same for every traveler. We do not negotiate because we do not want to compromise on quality — the hotels, food, guide, tour manager.”</em></p>
-<p><em>“Right now, the early bird gives you ₹5,000 off per person. That is the maximum benefit. And 7 out of 10 travelers come back — that does not happen if value is not there.”</em></p>
-<p><span class="sub">If they push harder</span><em>“I genuinely wish I could, but pricing is fixed at company level. I do not have authority to change it. What I CAN do is make sure your experience is worth every rupee.”</em></p>`,
-    donots: ["Give any discount", "Say \"I'll check with manager\"", "Get defensive"],
-    whatsapp: null
+    id: 16, title: "Children not allowing", tier: 3, complexity: "complex", category: "Family",
+    oneLiner: "Family already said no. Probe specific concern. Offer to call child directly — lead with safety + company, not destination.",
+    says: [
+      "My son says it's not safe",
+      "My daughter said no",
+      "My children don't want me to travel abroad",
+      "Family is not letting me go"
+    ],
+    means: "This is the harder cousin of #6 (family discussion). The family has already said no. The customer is still talking to us — that means part of them wants to go. The rep can't override the family decision but can offer to speak with the child directly. When pitching to the child, lead with safety, company, cancellation — NOT destination. The child doesn't care about Devdan Show.",
+    acknowledge: "I understand, Sir/Ma'am — children worry about their parents, that's natural.",
+    clarify: "May I ask — what specifically did your son/daughter say? Is it about safety, the company, or something about your health?",
+    paths: [
+      {
+        label: "Path A — Safety / company concerns",
+        script: "Sir/Ma'am, that's completely understandable. Here's what I can do — may I speak with your son/daughter directly? I can explain everything about our safety measures, the tour manager, the company, our cancellation policy. Many times children feel comfortable once they have the full information from us directly. If you share their number, I'll call them — or they can call me at [Rep Phone]."
+      },
+      {
+        label: "Path B — Medical concern",
+        script: "Sir/Ma'am, if your children are worried about your health, they may be right to be cautious. Please listen to them. We run trips every couple of months — whenever your doctor gives the go-ahead and your family feels comfortable, we are here. I'll share our WhatsApp community link so you can plan when ready."
+      },
+      {
+        label: "Path C — Customer doesn't want to involve children further",
+        script: "Of course, Sir/Ma'am. I won't push. We run trips every couple of months — whenever your family feels comfortable, just let me know. I'll share our WhatsApp community link so you can stay updated."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Children worry about parents, that's natural\"",
+      "Probe: \"What specifically did they say? Safety, company, or health?\"",
+      "Path A — Safety/company: Offer to call child directly. When pitching child: lead with SAFETY → COMPANY → CANCELLATION. Skip price unless child asks.",
+      "Path B — Medical: Respect the family. Don't push. Send community link.",
+      "Path C — Don't involve children: Graceful exit. Send community link."
+    ],
+    warnings: [
+      "When calling the child, never start with \"Bali is amazing\" — start with safety + company",
+      "Never undermine the parent-child relationship",
+      "If medical concern, respect completely — no pushback"
+    ],
+    templateIds: ["A1", "B1"]
   },
+
   {
-    id: 17, title: "Children not allowing", category: "Family", freq: "",
-    says: ["My son says not safe", "Daughter is worried about health", "Children think I should not travel"],
-    means: "Hard block. Parent wants to go. Child said no. You need to sell to the CHILD.",
-    response: `<p><em>“Your children care about you — that is wonderful. Their concern is natural.”</em></p>
-<p><em>“May I suggest — I can speak with your son/daughter directly and explain our safety measures, tour manager, medical support. Many times, children feel comfortable once they have full information.”</em></p>
-<p><em>“Would you like to share their number, or ask them to call me?”</em></p>
-<p><span class="sub">If you get child's number</span>Pitch DIFFERENTLY to the child. Focus on: company legitimacy, safety, tour manager, cancellation policy. NOT the destination.</p>
-<p><span class="sub">If medical reason</span><em>“If your children are concerned about a health condition, they may be right. Please check with your doctor first.”</em></p>`,
-    donots: null,
-    whatsapp: `For the child:
-
-Your [mother/father] is interested in our Bhutan trip. Here is safety information:
-
-✅ Tour manager from India, entire trip
-✅ First-aid trained, medical kit
-✅ Small group, 15–20 verified seniors
-✅ 100% refund if cancelled 30+ days
-
-Company: Eldaura Senior Adventures Pvt Ltd
-BHIVE Workspace, Kudlu Gate, Bangalore
-GST: 32AAICE5592N1Z5
-
-🎥 [Testimonial video]
-
-Call me at [number] with any questions.`
+    id: 17, title: "Friend hasn't confirmed", tier: 3, complexity: "complex", category: "Social",
+    oneLiner: "Catalyst principle: customer books first, friend follows. Reverse rarely works.",
+    says: [
+      "I'll book only if [friend's name] confirms",
+      "Let me wait for my friend to decide",
+      "My friend and I always travel together",
+      "If she goes, I'll go"
+    ],
+    means: "This sounds like a stall but is actually a safety blanket request. The customer wants someone familiar. The truth: most \"wait for friends\" leads die because friends never align. Disrupt the loop without dismissing it. Catalyst principle: customer booking first triggers friend to book. Reverse rarely works.",
+    acknowledge: "Of course, Sir/Ma'am — traveling with a friend makes the trip more fun.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, two things I can do to help.\n\nFirst — if you share your friend's number, I can call them directly with all the details, or you can forward our WhatsApp message to them. That way they have everything they need to decide quickly.\n\nSecond — I'll be honest with you, Sir/Ma'am. I can almost guarantee that if YOU confirm first, your friend will also confirm. We have seen this happen many times. The other way around — waiting for your friend to decide first — usually takes very long, and most of the time the trip date passes before anyone commits. Your dream to travel to Bali will never happen.\n\nThe fastest way to get your friends to come is for you to book first.\n\nI'll hold 2 seats for both of you for the next 3-4 days. No payment needed right now. If your friend confirms in that time, both of you are set. If not, you can still come — about 30% of our travelers come alone."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Traveling with a friend makes the trip more fun\"",
+      "Two offers: (1) Call friend directly if number shared, OR customer forwards WhatsApp (2) Conviction: \"If YOU book first, your friend will book. Reverse rarely works.\"",
+      "Honest: \"Your dream to travel to Bali will never happen if you wait for friends\"",
+      "Hold 2 seats for 3-4 days, no payment needed",
+      "Reassure: 30% travel alone, group feels like old friends by Day 2",
+      "Lock 3-day callback to check on friend's decision",
+      "If customer shares friend's number → call within 24 hours"
+    ],
+    warnings: [
+      "Don't say \"book separately and forget your friend\" — disrespects the friendship",
+      "Add solo traveler video only on second call if friend declines"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 18, title: "Cancellation policy / refund", category: "Buying Signal", freq: "",
-    says: ["What is cancellation policy?", "Is it refundable?", "What if I can't go?"],
-    means: "BUYING SIGNAL. People who aren't interested don't ask about cancellation.",
-    response: `<p><em>“Very good question. Our policy is simple:”</em></p>
-<p><em>“40 days or more before trip — 100% refund on package. 30 to 39 days — 70% refund. 20 to 29 days — 50%. 10 to 19 days — 25%. Less than 10 days — no refund on package.”</em></p>
-<p><em>“The good news — 40+ days gives you a complete safety net, which is plenty of time.”</em></p>
-<p><em>“Flight refund depends on airline policy — we explain options at booking.”</em></p>
-<p><em>“We also include travel insurance for travelers below 70. And if there is a last-minute emergency, we try to find a replacement — if we do, you get the refund.”</em></p>
-<p><em>“So booking now is very low risk if the trip is more than 30 days away.”</em></p>`,
-    donots: ["Be vague about the policy", "Promise things not in policy"],
-    whatsapp: null
+    id: 18, title: "Travel with friends (waiting for group)", tier: 3, complexity: "complex", category: "Social",
+    oneLiner: "Same as #17 but with a group. Catalyst principle: customer books first, friends follow.",
+    says: [
+      "If 4-5 friends agree, I'll go",
+      "I'm waiting for my group of friends to confirm",
+      "Will book only if my whole group comes",
+      "Let me check with my group"
+    ],
+    means: "Variation of #17 but with a group instead of one friend. Same dynamic: waiting for everyone to align almost never works. Same response: customer books first, friends follow. Catalyst principle.",
+    acknowledge: "Of course, Sir/Ma'am — traveling with friends makes the trip more fun.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, your friends are absolutely welcome — I can call them directly with details if you share their numbers, or you can forward our WhatsApp message to them.\n\nBut I'll be honest with you, Sir/Ma'am — I can almost guarantee that if YOU book first, your friends will also book. We have seen this happen across many of our seniors. The other way around almost never works — if you start the discussion with your friend first, they will start discussing with another friend, who will discuss with someone else, and this will keep going on. Your dream to travel to Bali will never happen.\n\nThe fastest way to get your friends to come is for you to book first.\n\nI'll hold seats for 3-4 days. No payment needed right now."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Traveling with friends makes the trip more fun\"",
+      "Offer: Call friends directly if numbers shared, OR customer forwards WhatsApp",
+      "Catalyst conviction: \"If YOU book first, your friends will book\"",
+      "Honest: \"Waiting for friends to align almost never works\"",
+      "Hold seats for 3-4 days, no payment needed",
+      "Lock 3-day callback to check on friend confirmation"
+    ],
+    warnings: [
+      "Same as #17 — never push customer to abandon friends"
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 19, title: "Want private / custom trip", category: "Group Fear", freq: "",
-    says: ["Can you arrange just for me and my wife?", "Can you customize?"],
-    means: "Want control and flexibility. But wrong company — ElderGo does group tours only.",
-    response: `<p><em>“I understand. We specialize in group tours only — that is our strength.”</em></p>
-<p><em>“A private Bali trip for two people would cost about ₹1,50,000 per person — guide, vehicle, hotels all just for two. In our group, costs are shared. You get a 4-star experience at almost half the price.”</em></p>
-<p><em>“And what our travelers say is — the group was the best part.”</em></p>
-<p><span class="sub">If still want private</span><em>“We do not do private tours. For customized trips, check with a travel agent who specializes in that. If you ever want a group experience, we are here.”</em></p>`,
-    donots: null,
-    whatsapp: null
+    id: 19, title: "Office visit", tier: 3, complexity: "simple", category: "Trust",
+    oneLiner: "Customer is close to deciding. Welcome warmly, give clear directions, lock specific visit time.",
+    says: [
+      "Can I come and meet you in person?",
+      "I'd like to see your office before paying",
+      "Where is your office located?",
+      "Can I visit before booking?"
+    ],
+    means: "A customer asking to visit the office is close to deciding — they are seriously evaluating. Welcome warmly, give clear directions, lock specific visit time. If founder/co-founder is available that day, offer to set up a meeting — they enjoy meeting senior travelers.",
+    acknowledge: "Of course, Sir/Ma'am — happy to have you visit.",
+    clarify: null,
+    paths: [
+      {
+        label: "If Bangalore-based",
+        script: "Sir/Ma'am, our office is at BHIVE Workspace, Block B, AKR Tech Park, Kudlu Gate, Bangalore. We are open Monday to Friday. Which day works best for you to visit?\n\n[After day is locked:]\n\nAlso Sir/Ma'am, if possible, I will check whether our founder is available that day — he genuinely enjoys talking to our senior travelers. If he or our co-founder is around, I'll make sure you can have a quick chat with them as well."
+      },
+      {
+        label: "If not in Bangalore",
+        script: "Sir/Ma'am, our office is in Bangalore — at Kudlu Gate. If you can travel to Bangalore, we're open Monday to Friday, and we'd love to have you. If that's not convenient, we can do a quick WhatsApp video call from the office — I'll show you around, you can meet the team, and we can answer any questions. Would that work?"
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Of course — happy to have you visit\" (customer is close to deciding)",
+      "If Bangalore: BHIVE Workspace, AKR Tech Park, Kudlu Gate. Mon-Fri. Lock specific day.",
+      "After day locked: offer founder/co-founder meeting if available",
+      "If not Bangalore: Offer WhatsApp video call from office",
+      "If neither works: Pivot to past traveler call (Tier 3 of #9 Trust)",
+      "Internal: rep checks founder/co-founder calendar before the visit"
+    ],
+    warnings: null,
+    templateIds: ["A5"]
   },
+
   {
-    id: 20, title: "Already booked elsewhere", category: "Lost", freq: "30 mentions",
-    says: ["Already booked my trip", "Going with Thomas Cook / Veena World"],
-    means: "Deal done for this trip. But they are a potential FUTURE customer.",
-    response: `<p><em>“That is great, Sir/Ma'am! I hope you have a wonderful trip. Which company, if you don't mind?”</em></p>
-<p><span class="sub">Note competitor in CRM</span></p>
-<p><em>“Our tours are exclusively for seniors — quite different from mixed-age groups. Many travelers try other companies first, then switch to us. Can I add you to our WhatsApp community? After your trip, if you want a different experience, we would love to have you.”</em></p>`,
-    donots: ["Bad-mouth competitor", "Try to make them cancel", "Sound desperate"],
-    whatsapp: `Wonderful to hear you have plans! Have an amazing trip.
-
-Adding you to our travelers' community.
-
-After your trip, if you want a senior-only experience, we are here.
-
-Have a safe journey!
-
-[Rep Name] | ElderGo Senior Tours`
+    id: 20, title: "Local company preference", tier: 3, complexity: "complex", category: "Trust",
+    oneLiner: "Reframe: local agent stays in their office; our tour manager flies WITH the group, handles everything in Bali.",
+    says: [
+      "I'd rather book with a Mumbai/Delhi/Chennai company",
+      "You're in Bangalore, I'm in [other city]",
+      "Do you have a local office in my city?",
+      "Local agents are easier to deal with"
+    ],
+    means: "The customer's hidden assumption: \"if something goes wrong, I want someone nearby.\" The reframe: for international travel, what matters isn't where the head office is — it's who is with you on the trip. A local agent in their city has zero presence in Bali. Our tour manager flies WITH the group from India, stays the entire week.",
+    acknowledge: "Sir/Ma'am, I completely understand the thought.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, may I share something? We have travelers from Delhi, Mumbai, Chennai, Hyderabad, Pune — all across India. Our support is over phone and WhatsApp, which works the same whether we are in Bangalore or your city.\n\nBut more importantly, Sir/Ma'am — for an international trip, what really matters is who is with you on the trip itself. A local agent in your city stays in their office while you are in Bali. Our tour manager from India travels WITH your group from Day 1 to the last day. They handle hotel check-ins, restaurant coordination, transport, medical needs — everything. That kind of on-ground support is what actually matters when you are abroad.\n\nAnd if you ever need help between trips, we are always reachable on phone and WhatsApp — same as a local agent would be."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Completely understand the thought\"",
+      "Reframe: Local agent stays in their office; our tour manager flies WITH the group, handles everything on the ground in Bali",
+      "We have travelers from Delhi, Mumbai, Chennai, Hyderabad, Pune — support over phone + WhatsApp",
+      "Tour manager Day 1 to last day — hotel check-ins, restaurants, transport, medical",
+      "Send V5 (Chennai customer) to subtly show we serve other cities"
+    ],
+    warnings: null,
+    templateIds: ["A1", "B3"]
   },
+
   {
-    id: 21, title: "I'll call you back", category: "Exit", freq: "",
-    says: ["Don't call me, I'll call you", "I have your number", "I'll reach out when ready"],
-    means: "Want to end the conversation and maintain control. Different from \"I'll think about it.\"",
-    response: `<p><em>“Of course, Sir/Ma'am. I will not call unless you want me to. But before I go — just one quick question.”</em></p>
-<p><span class="sub">If travel history unknown</span><em>“Have you traveled outside India before?”</em></p>
-<p><span class="sub">If known</span><em>“When are you planning to travel — this year or later?”</em></p>
-<p><em>“Thank you, Sir/Ma'am. I will send trip details on WhatsApp. Take your time, and whenever you feel like talking, just reply or call me. No pressure.”</em></p>
-<p><span class="sub">CRM</span>Mark Cold. ONE follow-up call after 15 days. Include in WhatsApp drip sequence.</p>`,
-    donots: null,
-    whatsapp: `Here are complete details:
-
-📎 [Itinerary PDF]
-🎥 [Video 1] | 🎥 [Video 2]
-
-📍 7 days, 7 nights — Thimphu, Punakha, Paro
-💰 ₹72,000 per person (early bird) + flights
-🏨 4-star hotels, all meals
-👨‍✈️ Tour manager from India
-🔁 7 out of 10 travelers come back
-
-No pressure. Whenever ready, reply here or call [number].
-
-[Rep Name] | ElderGo Senior Tours`
-  }
-
-  ,{
-    id: 22, title: "Long drive days (Bali-specific)", category: "Bali-Specific", freq: "",
-    says: ["The drives sound long", "Day 2 and Day 4 look like long drives", "I don't want long bus days"],
-    means: "Genuine concern about Saver structure. Day 2 and 4 do have longer drives. Don't deny — reframe and offer Comfort.",
-    response: `<p><em>“You are right, Sir/Ma'am. Day 2 and Day 4 do have longer drives — but we make multiple stops, the bus is comfortable AC, and the pace is gentle.”</em></p>
-<p><em>“If you would prefer minimal driving, we have a Comfort package — it is ₹15,000 more per person, departing 1 July. You stay inside Ubud for 2 nights and at a 5-star in Jimbaran for 4 nights, so there are no long drive days at all.”</em></p>
-<p><em>“Would you like me to share details of both packages on WhatsApp so you can compare?”</em></p>`,
-    donots: ["Deny the drive lengths", "Push Saver if Comfort fits better"],
-    whatsapp: null
+    id: 21, title: "Discount", tier: 3, complexity: "simple", category: "Budget",
+    oneLiner: "Hold the line. Pricing fixed company-wide. Early bird IS the discount. Repeat rate proves value.",
+    says: [
+      "Can you give me some discount?",
+      "What's your best price?",
+      "For two people, can you do less?",
+      "Round it off and give me a deal"
+    ],
+    means: "Hold the line. Do not negotiate. Do not say \"I'll check with my manager.\" Three clear messages: pricing fixed company-wide, early bird IS the maximum discount, repeat rate proves value. If customer pushes, state firmly: \"I do not have authority to change pricing.\" Most professional buyers respect this.",
+    acknowledge: "I understand the question, Sir/Ma'am — most people ask.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, our prices are fixed at company level — same for every traveler. We don't negotiate because we don't compromise on quality. The early bird offer that's already running gives you ₹5,000 off per person — for a couple that's ₹10,000 saved. That is the maximum benefit available right now.\n\nHonestly, Sir/Ma'am — 7 out of 10 of our travelers come back and book another trip with us. That doesn't happen if the value isn't there."
+      },
+      {
+        label: "If customer pushes again",
+        script: "Sir/Ma'am, I genuinely do not have the authority to change pricing — it is fixed at company level. The early bird is the best I can offer.\n\n[Pause. Let silence work.]"
+      },
+      {
+        label: "If customer still insists",
+        script: "Sir/Ma'am, I completely understand if the budget doesn't fit right now. Whenever the timing works for you, we are here. May I share our WhatsApp community link so you can stay updated on upcoming trips?"
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"I understand — most people ask\"",
+      "Three messages: Pricing fixed at company level + early bird IS the discount (₹5K/person, ₹10K/couple) + 7 out of 10 come back proves value",
+      "If pushed: \"I do not have authority to change pricing — fixed at company level\"",
+      "If still pushed: graceful exit, send community link"
+    ],
+    warnings: [
+      "NEVER say \"let me check with my manager\" — creates false hope, kills credibility",
+      "NEVER actually give a discount — pricing discipline matters more than one sale",
+      "Hold the line politely. Silence after firm \"no\" works better than more arguments."
+    ],
+    templateIds: ["A1"]
   },
+
   {
-    id: 23, title: "Bali Premium availability (Bali-specific)", category: "Bali-Specific", freq: "",
-    says: ["Do you have a Premium package?", "What about higher-end?", "Is there a more luxurious option?"],
-    means: "Customer wants luxury. Premium is sold out for June and July — be honest, capture them for next batch.",
-    response: `<p><em>“Yes, Sir/Ma'am, we do have a Premium package — but for June and July it is already sold out.”</em></p>
-<p><em>“What I can do is add you to the waitlist for the next Premium batch. We will announce dates when they are finalized and call you personally.”</em></p>
-<p><em>“In the meantime, our Comfort package is the closest fit — it has Ubud and 5-star Jimbaran stays, sunset cruise, gala dinner. Would you like details?”</em></p>`,
-    donots: null,
-    whatsapp: null
+    id: 22, title: "No passport / passport expired", tier: 3, complexity: "simple", category: "Practical",
+    oneLiner: "Bali requires passport. Tatkal = 1-2 weeks. Trip is 6+ weeks away — plenty of time.",
+    says: [
+      "I don't have a passport",
+      "My passport expired",
+      "Passport is being renewed",
+      "How long does a passport take?"
+    ],
+    means: "Practical question, not real objection. Customer wants to know if they can join with their passport situation. Clear factual answer: Bali requires passport, Tatkal is fast, trip is 6+ weeks away — plenty of time.",
+    acknowledge: "Got it, Sir/Ma'am — let me explain quickly.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, for Bali, you do need a passport. Getting a passport in India is quite fast now. There's a Tatkal service which takes about 1-2 weeks for a new passport, and similar for renewal. Our June trip is more than 6 weeks away, so you have plenty of time."
+      },
+      {
+        label: "If no passport at all",
+        script: "Sir/Ma'am, I'd suggest you start the passport process this week — Tatkal can give it to you in about 10 to 15 days. Once you have the passport, just let me know and I'll confirm your booking.\n\nSir/Ma'am, I can hold a seat for you for the next 3-4 days while you start the passport process. No payment needed right now."
+      },
+      {
+        label: "If renewal",
+        script: "For renewal it's also quick — about 1-2 weeks via Tatkal. As soon as it's done, share the new details with me and we'll process the booking."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Got it — let me explain quickly\"",
+      "Three points: (1) Bali requires passport (2) Tatkal: 1-2 weeks for new or renewal (3) June trip is 6+ weeks away — plenty of time",
+      "If no passport → suggest Tatkal this week, hold seat 3-4 days",
+      "If renewal → similar timeline, share details once done"
+    ],
+    warnings: [
+      "If trip is genuinely too close (passport won't arrive in time) → be honest, suggest later batch"
+    ],
+    templateIds: ["A1"]
+  },
+
+  {
+    id: 23, title: "Already booked elsewhere", tier: 3, complexity: "simple", category: "Lost",
+    oneLiner: "Concede cleanly. Compete for the relationship, not this booking. Plant senior-only difference. Schedule 30-45 day follow-up.",
+    says: [
+      "I've already booked Bali with another company",
+      "We are going next month with [competitor]",
+      "My friend booked it through [travel agent]",
+      "Already paid for a different trip"
+    ],
+    means: "Concede the trip cleanly. Compete for the relationship, not this booking. Note the competitor in CRM (intel). Plant our senior-only difference — most likely they've booked a mixed-age tour. After their trip, they'll know the difference. Schedule a 30-45 day follow-up call to compare experiences.",
+    acknowledge: "That's wonderful, Sir/Ma'am — I hope you have a great trip!",
+    clarify: "May I ask — which company are you traveling with?",
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, our tours are exclusively for seniors — only travelers 55 and above, no youngsters, no families with children. Group of 20 to 25 people. After your trip, if you ever want to experience a senior-only group tour, we'd love to have you. We run trips to all domestic and international destinations almost every month.\n\nMay I share our WhatsApp community link so you can see our trips? You can join anytime, leave anytime. After your current trip, if anything appeals to you, just reply to me."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"That's wonderful — I hope you have a great trip!\" (concede cleanly)",
+      "Probe for CRM: \"Which company are you traveling with?\" — note in CRM, don't comment",
+      "Plant the seed: Senior-only, 55+, no youngsters — distinct from what they've booked",
+      "Soft close: Share WhatsApp community link for future trips",
+      "Add to 30-45 day follow-up list (after their competitor trip ends)"
+    ],
+    warnings: [
+      "NEVER bad-mouth the competitor — even if customer prompts",
+      "NEVER try to convince them to cancel their booking",
+      "NEVER quote prices comparing us vs them"
+    ],
+    templateIds: ["A2"]
+  },
+
+  {
+    id: 24, title: "Food restrictions", tier: 3, complexity: "complex", category: "Practical",
+    oneLiner: "Standard veg = confident yes. Diabetic = confident yes, menu adjusted. Jain/unusual = don't commit, defer to ops check.",
+    says: [
+      "I'm pure vegetarian",
+      "We are Jain — no onion, no garlic",
+      "I'm diabetic, need a specific diet",
+      "I don't eat anything outside, only home food"
+    ],
+    means: "Three-tier handling. Standard vegetarian: confident yes, we handle routinely. Diabetic: confident yes, menu adjusted, timing flexible. Jain or unusual: don't commit, defer to ops check (some vendors accommodate, some don't). Better to be honest than oversell and disappoint a traveler in Bali.",
+    acknowledge: "Of course, Sir/Ma'am — let me address that.",
+    clarify: null,
+    paths: [
+      {
+        label: "Standard vegetarian",
+        script: "Sir/Ma'am, all our trips have Indian vegetarian meals pre-arranged daily — breakfast, lunch, dinner. No issue at all."
+      },
+      {
+        label: "Diabetic",
+        script: "Sir/Ma'am, our tour manager is briefed about dietary needs. We adjust the menu with low-sugar options and meal timing is flexible. Many of our travelers manage diabetes comfortably on the trip."
+      },
+      {
+        label: "Jain or unusual request",
+        script: "Sir/Ma'am, no problem. Let me check with my operations team once. Depending on the vendor in Bali, some will be able to arrange Jain meals and some may not. I'll confirm with my team and get back to you on this — give me a day."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Of course — let me address that\"",
+      "Standard veg: Confident yes, all meals pre-arranged",
+      "Diabetic: Menu adjusted, flexible timing, tour manager briefed",
+      "Jain / unusual: Don't commit. \"Let me check with my operations team — depending on vendor.\" Lock 24-hour callback.",
+      "After ops check: come back honest. If vendor can do it → confirm. If not → disclose limitations, let customer decide."
+    ],
+    warnings: [
+      "Never promise Jain food upfront. Always check with ops first.",
+      "Never oversell — don't say \"guaranteed pure Jain kitchen\""
+    ],
+    templateIds: ["A1"]
+  },
+
+  {
+    id: 25, title: "Want private trip, not group", tier: 3, complexity: "simple", category: "Lost",
+    oneLiner: "Honest disclosure: \"We specialize in group tours only.\" One reframe: the group is the BEST part. Then respect the answer.",
+    says: [
+      "Can you make it just for me and my wife?",
+      "I prefer private travel, not group",
+      "We don't like group tours",
+      "Can you customize the itinerary?"
+    ],
+    means: "Don't try to convince a private-tour customer to do group through cost-comparison gymnastics. They've decided. Trying to talk them out wastes time. But before letting them go, plant one specific reframe: the group experience is what most travelers say is the BEST part of the trip. Some private-tour customers reconsider. Most don't. Either way, plant the seed and respect the answer.",
+    acknowledge: "I understand, Sir/Ma'am — completely fair preference.",
+    clarify: null,
+    paths: [
+      {
+        label: "Main response",
+        script: "Sir/Ma'am, to be straightforward — we specialize in group tours only. We don't do private trips.\n\nBut before you decide, may I share one thing? Most of our travelers tell us the group itself is the best part of the trip — even the ones who were hesitant initially. Same stage of life, all 55 and above, no youngsters, by Day 2 it feels like old friends. That's the experience we are built for.\n\nIf you still prefer private travel, I completely understand. But if you ever want to experience a senior-only group tour, we'd love to have you."
+      },
+      {
+        label: "If customer still wants private",
+        script: "No problem at all, Sir/Ma'am. Whenever you do want to experience a group trip, we are here. May I share our WhatsApp community link so you can see our trips? You can join anytime if you change your mind."
+      }
+    ],
+    bullets: [
+      "Acknowledge: \"Completely fair preference\"",
+      "Honest disclosure: \"We specialize in group tours only — we don't do private trips\"",
+      "One reframe: Most travelers say the group is the BEST part — same stage of life, feels like old friends by Day 2",
+      "If customer still wants private → graceful exit, send community link"
+    ],
+    warnings: [
+      "Don't try to convince through cost comparisons",
+      "Don't quote made-up private trip prices to make group look cheaper",
+      "Be honest, plant the seed, respect the answer"
+    ],
+    templateIds: ["A2"]
   }
 
 ];
 
+
 const OBJECTION_CATEGORIES = [
-  { name: "Exit", label: "🚪 Exit Attempts", ids: [1, 2, 21] },
-  { name: "Family", label: "👨‍👩‍👧 Family", ids: [3, 4, 17] },
-  { name: "Budget", label: "💰 Budget", ids: [5, 16] },
-  { name: "Group Fear", label: "👥 Group Fear", ids: [6, 7, 19] },
-  { name: "Practical", label: "📋 Practical", ids: [8, 9, 15] },
-  { name: "Trust", label: "🤝 Trust", ids: [10, 11, 12] },
-  { name: "Timing", label: "📅 Timing", ids: [13] },
-  { name: "Social", label: "👫 Social", ids: [14] },
-  { name: "Buying Signal", label: "🎯 Buying Signal", ids: [18] },
-  { name: "Lost", label: "❌ Lost", ids: [20] },
-  { name: "Bali-Specific", label: "🌴 Bali-Specific", ids: [22, 23] }
+  { name: "Budget",     label: "💰 Budget",      ids: [1, 2, 21] },
+  { name: "Timing",     label: "📅 Timing",      ids: [3, 11, 12] },
+  { name: "Exit",       label: "🚪 Exit",        ids: [4, 5, 14] },
+  { name: "Family",     label: "👨‍👩‍👧 Family",      ids: [6, 7, 16] },
+  { name: "Practical",  label: "📋 Practical",   ids: [8, 10, 22, 24] },
+  { name: "Trust",      label: "🤝 Trust",       ids: [9, 15, 19, 20] },
+  { name: "Group Fear", label: "👥 Group Fear",  ids: [13] },
+  { name: "Social",     label: "👫 Social",      ids: [17, 18] },
+  { name: "Lost",       label: "❌ Lost",        ids: [23, 25] }
 ];
 
 /* =============================================================
@@ -2659,684 +3604,353 @@ const OBJECTION_CATEGORIES = [
    - [day], [time], [paste payment link], [X] seats — rep fills manually after paste
 */
 const WHATSAPP_TEMPLATES = [
-  /* ===== SECTION A: Main flow outcomes ===== */
+  /* ===== A-series: Universal post-call templates ===== */
+
   {
     id: "A1",
-    title: "Callback Scheduled (Saver only)",
-    when: "Customer is interested in Bali Saver — callback date and time agreed. Use on the Scheduled Callback close screen.",
-    attach: "Both itinerary and pricing are hosted links — nothing to attach. Replace [day] and [time] with the callback slot.",
+    title: "Callback Scheduled",
+    when: "After Call 1, when callback is locked with a specific day and time. Most common template — fires on roughly half of all calls.",
+    attach: "Itinerary and pricing are linked, no PDF needed. The bracket-fill popup will ask for [Day] and [Time] before copying.",
     content: `Hello [Name] Sir/Ma'am,
 
-Thank you for speaking with me today. Here are the complete details for our *Bali senior group tour — 17-23 June 2026.*
+Thank you for your time on the call. As discussed, here are the details for our *Bali senior tour, 17–23 June 2026.*
 
-📎 *Bali Saver — Itinerary*
-https://eldergo.my.canva.site/bali-saver-itinerary-jun-2026
+📍 *Trip overview*
+7 days, 6 nights at a 4-star hotel in Kuta
+All meals, transport, sightseeing, tour manager from India — fully included
+Special experiences: Devdan Show + Puja Mandal visit
 
-💰 *Bali Saver — Detailed Pricing*
-https://eldergo.my.canva.site/bali-saver-pricing-jun-2026
+💰 *Investment*
+Land package: *₹70,000 per person* (early bird, save ₹5,000)
+Round-trip flight from your city: [Flight] per person
+Grand total: *[Total] per person, all-inclusive*
 
-✅ *Price Breakdown*
-Original land package: ₹75,000 per person
-Early bird offer: *- ₹5,000 per person*
-Land package (after early bird): *₹70,000 per person*
-Round-trip flight: *{{flight}} per person*
-*Grand total: {{grandEB}} per person* (all-inclusive){{groupTotalLine}}
+📎 *Itinerary:* https://eldergo.my.canva.site/saver-bali-june-2026
 
-🌴 *Premium Experiences Included*
-Devdan Show — premium Indonesian cultural performance
-Puja Mandal — unique multi-faith spiritual complex
+📷 *Photos from our last Bali trip:* https://eldergo-bali.netlify.app/
 
-💳 *Easy Payment*
-Booking advance: only *₹15,000 per person*
-Rest in 3 easy installments — last one 21 days before trip
+🎥 *Real customer reviews from our trips:*
+Santosh & Rekha (retired Army officer): https://youtube.com/shorts/yBUXxrJn2DE
+Mr & Mrs Sanjay (recent Bali couple): https://youtube.com/shorts/rJj3M1dFUnA
 
-Here are short videos from our recent trips — real seniors sharing their experience:
+⭐ *Google Reviews (4.96 rating):* https://share.google/HLkyxqWmgVpYoyXDc
 
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
+I'll call you on *[Day] at [Time]* as we discussed. If anything changes, just reply here.
 
-🎥 https://youtu.be/0yAEaf_YRpw
-
-I will call you on *[day]* at *[time]* as we discussed. Please go through the details before then. If you have any questions, just reply here.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
+Warm regards,
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
     id: "A2",
-    title: "WJFT — Will Join Future Trip",
-    when: "Customer is interested but dates / destination don't work. Add to WhatsApp community.",
-    attach: "No PDF attachment needed. After sending, add the customer to the ElderGo WhatsApp community.",
+    title: "Will Join Future Tour",
+    when: "After Call 1, when the customer is interested in our trips but not for the current Bali batch. Could be timing, dates, destination, or budget.",
+    attach: "No attachment. After sending, add the customer to the WhatsApp community.",
     content: `Hello [Name] Sir/Ma'am,
 
-Thank you for your time today. I understand the timing is not right for this trip.
+Thank you for your time on the call. I understand the current Bali trip doesn't quite suit you right now — completely fine.
 
-We have trips running almost every month — Bali, Vietnam, Nepal, Sri Lanka, and more.
+We run senior-only group tours to all domestic and international destinations almost every month. Whenever the right trip opens up for you, I'll personally call.
 
-Here is a short video from one of our recent Bali trips:
+In the meantime, here's our WhatsApp community — you can join to see all our upcoming trips, photos from past tours, and decide at your own pace:
 
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
+🔗 *Join our WhatsApp community:* https://chat.whatsapp.com/Kp69JEJmzeoI64w2wsVoXZ
 
-I will personally call you when we announce a trip that matches your preference. Adding you to our WhatsApp community for updates.
+🎥 *See what our trips look like — Santosh & Rekha (retired Army officer):* https://youtube.com/shorts/yBUXxrJn2DE
 
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
+Whenever you do plan to travel, just reply here or call me directly.
+
+Warm regards,
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
-    id: "BOOKING",
-    title: "Booking Confirmation + Payment Link",
-    when: "Customer said yes on the call. Send within 5 minutes — do not lose momentum.",
-    attach: "Replace [paste payment link] with the actual Cashfree link before sending. Bank details are literal — do not change. Never send this template with a personal account.",
+    id: "A3",
+    title: "Cold / Dropped",
+    when: "After Call 1, when the customer has clearly opted out — \"don't call me again\" or full shutdown. Minimal template, just leaves the door open without pressure.",
+    attach: "No attachment. Mark Cold in CRM. No follow-up calls.",
     content: `Hello [Name] Sir/Ma'am,
 
-Wonderful! Welcome to the *ElderGo family.* 🎉
+Apologies for the call earlier. I'll not disturb you again.
 
-To confirm your seat for the *Bali trip starting 17 June 2026,* please make the booking advance:
+Just sharing our WhatsApp community link in case you ever want to see our upcoming trips. You can join anytime, leave anytime — completely your choice:
 
-✅ *Booking Advance: ₹15,000 per person*{{groupTotalLine}}
+🔗 https://chat.whatsapp.com/Kp69JEJmzeoI64w2wsVoXZ
 
-You can pay via:
+Have a great day, Sir/Ma'am.
 
-🔗 *Payment Link:* [paste payment link]
-
-🏦 *Or Bank Transfer:*
-    Account Name: *Eldaura Senior Adventures Private Limited*
-    Bank: Axis Bank — Corporate Current Account
-    A/C: *925020003767362*
-    IFSC: *UTIB0000694*
-
-Please share the payment screenshot here once done.
-
-After your advance, the rest will be split into *3 easy installments* — the last installment is about 21 days before the trip.
-
-After payment confirmation, I will send:
-📎 Booking confirmation
-📎 Packing list
-📎 Documents needed (Passport required for Bali (Voter ID will not work))
-📎 Day-by-day plan
-
-Any questions, just reply here.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
+*[Rep]*
+ElderGo Senior Tours`
   },
 
-  /* ===== SECTION B: Objection follow-ups ===== */
+  {
+    id: "A4",
+    title: "Payment Link",
+    when: "When the customer is ready to pay the booking advance. Gives two payment options — UPI/payment link OR bank transfer.",
+    attach: "Generate the Cashfree payment link first. The bracket-fill popup will ask for [Payment link] before copying. Bank details are literal — do not change.",
+    content: `Hello [Name] Sir/Ma'am,
+
+As discussed, here are the payment details for the booking advance:
+
+💰 *Booking advance: ₹15,000 per person*
+
+*Option 1 — Online Payment Link*
+[Payment link]
+
+*Option 2 — Bank Transfer*
+Bank: Axis Bank
+Account Name: Eldaura Senior Adventures Pvt Ltd
+Account Number: 925020003767362
+IFSC: UTIB0000694
+
+Once you've paid, please share a screenshot here and I'll confirm your seat within 30 minutes.
+
+If you have any questions about payment, call me at [Rep Phone].
+
+*[Rep]*
+ElderGo Senior Tours`
+  },
+
+  {
+    id: "A5",
+    title: "Office Visit Confirmation",
+    when: "After locking a specific day for an office visit. Confirms the meeting and shares directions.",
+    attach: "The bracket-fill popup will ask for [Day], [Time], and [Google Maps link] before copying. Paste the maps link from Google Maps.",
+    content: `Hello [Name] Sir/Ma'am,
+
+Looking forward to meeting you on *[Day] at [Time]* at our office.
+
+📍 *Address*
+ElderGo Senior Tours
+BHIVE Workspace, Block B, AKR Tech Park
+7th Mile Hosur Road, Kudlu Gate
+Bangalore — 560068
+
+🗺️ *Google Maps:* [Google Maps link]
+
+🕐 *Office hours:* Monday to Friday
+
+When you arrive, just ask the reception for ElderGo and they'll guide you to us.
+
+If you have any trouble finding the office, call me directly at [Rep Phone].
+
+If our founder or co-founder is available that day, I'll arrange for you to meet them as well — they enjoy talking to our travelers.
+
+See you on [Day]!
+
+*[Rep]*
+ElderGo Senior Tours`
+  },
+
+  /* ===== B-series: Objection-specific follow-ups ===== */
 
   {
     id: "B1",
-    title: "Not the Right Time — Callback Scheduled",
-    when: "Objection #1 — customer was busy, callback agreed. Use when a specific day and time is confirmed.",
-    attach: "Attach the Bali Saver Itinerary PDF. Replace [day] and [time] with the agreed callback slot.",
+    title: "Family Forwardable",
+    when: "After Objection #6 (Discuss with family / children). The customer will forward this to their family group. Includes safety, company, cancellation — what adult children check first.",
+    attach: "No attachment needed — itinerary link is in the message. Tell the customer verbally: \"Feel free to forward this to your family group.\"",
     content: `Hello [Name] Sir/Ma'am,
 
-This is *[Rep Name]* from *ElderGo Senior Tours, Bangalore.*
+Sharing the full details below — please feel free to forward this to your family. If your son, daughter, or anyone has questions, they can call me directly at [Rep Phone].
 
-Sorry I caught you at a busy time. Here are our Bali trip details for whenever you are free.
+🌴 *Bali Senior Tour, 17–23 June 2026*
+7 days, 6 nights │ All-inclusive package
+Land package: *₹70,000 per person* (early bird)
 
-📎 [Attach Itinerary PDF]
+📋 *What's covered*
+• 4-star hotel in Kuta (Golden Tulip)
+• All meals — breakfast, lunch, dinner, every day
+• AC transport, English-speaking guide
+• Tour manager from India who travels with the group throughout
+• All entry tickets, visa, Bali tourism tax, GST
+• Travel insurance for travelers below 70
 
-I will call you on *[day]* at *[time]* as we discussed. If that does not work, just reply here.
+🛡️ *About safety*
+Our tour manager is first-aid trained and stays with the group from Day 1 to the last day. They handle hotel check-ins, restaurants, transport, medical needs — everything. The group is small (20–25 seniors only, all 55+).
 
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
+🏢 *About the company*
+ElderGo is a registered private limited company based in Bangalore.
+Office: BHIVE Workspace, Kudlu Gate, Bangalore
+Google rating: *4.96* — https://share.google/HLkyxqWmgVpYoyXDc
+GST: Available on request, can be verified on the government portal
+
+💰 *Cancellation policy*
+40+ days before trip: 100% refund
+30–39 days: 70% refund
+20–29 days: 50% refund
+10–19 days: 25% refund
+
+🎥 *Real customer reviews:*
+Santosh & Rekha (retired Army officer): https://youtube.com/shorts/yBUXxrJn2DE
+Geetha (her daughter shares why she trusted us): https://youtube.com/shorts/vRUaWyCvZaI
+
+📷 *Photos from our last Bali trip:* https://eldergo-bali.netlify.app/
+
+📎 *Full itinerary:* https://eldergo.my.canva.site/saver-bali-june-2026
+
+Happy to answer any questions your family may have. Just call or message.
+
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
     id: "B2",
-    title: "Not the Right Time — Don't Call Again",
-    when: "Objection #1 — customer said don't call again. Leave the door open, no follow-ups.",
-    attach: "Attach the Bali Saver Itinerary PDF. Mark Cold in CRM. No follow-up calls.",
+    title: "Couple-Focused",
+    when: "After Objection #7 (Discuss with spouse). Designed for both spouses to read together. Includes a real Bali couple testimonial as social proof.",
+    attach: "Itinerary link is in the message. The bracket-fill popup will ask for [Day] and [Time] for the suggested joint callback.",
     content: `Hello [Name] Sir/Ma'am,
 
-This is *[Rep Name]* from *ElderGo Senior Tours, Bangalore.*
+Thank you for your time on the call. Sharing the full details so you and Madam/Sir can go through them together.
 
-I am sharing our *Bhutan senior group tour* details — just in case you want to look at it sometime.
+🌴 *Bali Senior Tour, 17–23 June 2026*
+7 days, 6 nights │ All-inclusive
 
-📎 [Attach Itinerary PDF]
+💑 *For both of you*
+Land package: *₹70,000 per person* (early bird)
+Round-trip flight: [Flight] per person
+*Grand total: [Total] per person, all-inclusive*
+For both of you together: *[Total × 2] for the two of you*
 
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
+📎 *Itinerary:* https://eldergo.my.canva.site/saver-bali-june-2026
 
-No calls from our side. If you want to know more, just reply here or call us at *+91 90368 62200.*
+🎥 *Hear from a recent Bali couple — Mr & Mrs Sanjay:* https://youtube.com/shorts/rJj3M1dFUnA
 
-Thank you!`
+🎥 *Couple testimonial — Ian & Marlene D'Cunha:* https://youtube.com/shorts/G9W7ho89IOc
+
+📷 *Photos from our last Bali trip:* https://eldergo-bali.netlify.app/
+
+If both of you are free together, I can call back and explain the trip to both of you at the same time — that way Madam/Sir can ask any questions directly. Just let me know what time works.
+
+I'll hold a seat for the next 3–4 days while you discuss, no payment needed right now.
+
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
     id: "B3",
-    title: "Not Interested (No Reason)",
-    when: "Objection #2 — customer said not interested with no specific reason. Soft exit.",
-    attach: "Mark WJFT or Lost in CRM based on tone. Add to drip sequence.",
+    title: "Trust Stack",
+    when: "After Objection #9 (Is this real?). Full proof package — videos, company verification, Google reviews, GST, office, payment safety. Most important template for cold leads who are seriously evaluating but worried about scams.",
+    attach: "No attachment. Bank details are literal — do not change. Never send this template with a personal account.",
     content: `Hello [Name] Sir/Ma'am,
 
-This is *[Rep Name]* from *ElderGo Senior Tours.*
+As promised on the call, sharing everything you need to verify us. Take your time going through it.
 
-I understand this may not be the right time. Here is a short video from our recent Bali trip — real seniors sharing their experience:
+🎥 *Real customer reviews from our trips*
+These are real seniors who have traveled with us — standing at the actual tour locations, sharing their experience. Not paid actors.
+Santosh & Rekha (retired Army officer): https://youtube.com/shorts/yBUXxrJn2DE
+Geetha (her daughter shares why she trusted us): https://youtube.com/shorts/vRUaWyCvZaI
+Mr & Mrs Sanjay (recent Bali couple): https://youtube.com/shorts/rJj3M1dFUnA
 
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
+⭐ *Google Reviews — 4.96 rating*
+https://share.google/HLkyxqWmgVpYoyXDc
 
-If you ever plan a trip, just reply here anytime.
+🏢 *Company details*
+ElderGo is a registered private limited company.
+GST Number: *32AAICE5592N1Z5*
+You can verify this on the government GST portal directly.
+Office: BHIVE Workspace, Block B, AKR Tech Park, Kudlu Gate, Bangalore — 560068
+Website: www.eldergo.in
 
-Thank you!`
+🏦 *Bank account (for your verification)*
+Bank: Axis Bank
+Account Name: *Eldaura Senior Adventures Pvt Ltd* (this is the legal name behind the ElderGo brand)
+Account Number: 925020003767362
+IFSC: UTIB0000694
+This is a *company current account*, not a personal account.
+
+🏢 *If you'd like to visit our office*
+Mon–Fri, just let me know which day and I'll be there to welcome you. If you're not in Bangalore, we can do a quick WhatsApp video call from the office.
+
+Any questions, just call me.
+
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
     id: "B4",
-    title: "Discuss with Family / Children (Forwardable)",
-    when: "Objection #3 — customer wants to check with children. Designed to be forwarded to family WhatsApp group.",
-    attach: "Attach the Bali Saver Itinerary PDF. Tell the customer verbally: \"Feel free to forward this to your family group.\"",
+    title: "Last Year's Price Explainer",
+    when: "After Objection #2 (Last year's price was less). Reinforces the explanation given on the call. Mostly used on second call when the objection persists.",
+    attach: "Itinerary link is in the message. No PDF needed.",
     content: `Hello [Name] Sir/Ma'am,
 
-Thank you for your interest in our *Bhutan senior group tour.* Here are details you can share with your family:
+As we discussed on the call, sharing a quick summary of why this year's Bali price is different from last year:
 
-✅ *About ElderGo*
-Senior-only group tours. 15-20 travelers per group.
-15+ tours to 7 countries in the last year.
-7 out of 10 travelers come back for another trip.
-Office: BHIVE Workspace, Kudlu Gate, Bangalore.
-GSTIN: 32AAICE5592N1Z5
-Website: www.eldergo.in
+📅 *Last year's trip*
+6 days │ Around ₹96,000 per person all-inclusive
 
-✅ *Bhutan Trip — 7 May 2026*
-7 days / 6 nights | All-inclusive
-Early bird: *₹70,000 per person* (land package)
-Round-trip flight: *{{flight}} per person*
-Grand total: *{{grandEB}} per person*{{groupTotalLine}}
+📅 *This year's trip*
+7 days, 6 nights (one extra full day in Bali — added because last year's travelers said the pace was rushed) │ *₹70,000 land package + flight*
 
-✅ *Safety*
-Tour manager from India on every trip.
-First-aid trained with medical kit.
-Small group (15-20 seniors only).
-4-star and premium hotels. All meals included.
+✈️ *Why the increase?*
+*Flight prices have gone up by ₹15,000–20,000 per person* compared to last year. This is mainly because the rupee has weakened against the dollar. Every traveler to Bali is paying these flight prices right now — not just with us. We don't add any markup on flights, we pass them through at airline rate.
 
-✅ *Cancellation*
-100% refund if cancelled 30+ days before trip.
+The land package itself — meaning everything in Bali — has gone up only slightly. We kept the hotel and inclusions the same quality. The bigger jump is the flight.
 
-✅ *Google Reviews*
-https://share.google/SUknAA0DY3B27fJEe
+📊 *Looking ahead*
+Historically, flight prices to Bali have only gone up over the last couple of years. They very rarely come down — the rupee-dollar trend keeps pushing them higher. The only time prices drop is during the rainy season (November to February), but the experience is poor due to the rain.
 
-✅ *What other families say*
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
+🌴 *June to October is high season for Bali*
+This is genuinely the best price we've seen in the last few weeks for this date range.
 
-🎥 https://youtube.com/shorts/vRUaWyCvZaI?feature=share
+⏰ *Early bird offer is still on*
+Land package drops from ₹75,000 to *₹70,000 per person* — saving you ₹5,000 per person, ₹10,000 for a couple.
 
-📎 [Attach Itinerary PDF]
+📎 *Full itinerary:* https://eldergo.my.canva.site/saver-bali-june-2026
 
-If your family has any questions, they can call me directly at *+91 90368 62200.*
+Happy to discuss further whenever you're ready.
 
-*[Rep Name]*
-*ElderGo Senior Tours*`
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   },
 
   {
     id: "B5",
-    title: "Discuss with Spouse",
-    when: "Objection #4 — customer needs to check with wife/husband.",
-    attach: "Attach the Bali Saver Itinerary PDF. If possible, schedule a callback when both partners are available.",
+    title: "Comfort Upsell",
+    when: "When the customer asks about Bali Comfort during the Saver pitch, OR when the customer needs a date that doesn't match June. Sets up a separate callback to discuss Comfort properly.",
+    attach: "Both itinerary links are in the message. The bracket-fill popup will ask for [Day] and [Time] for the Comfort callback.",
     content: `Hello [Name] Sir/Ma'am,
 
-Here are the details so you and your [wife/husband] can go through them together:
+As we discussed, we have *two Bali batches* this year. Here's a quick comparison so you can decide which suits you better:
 
-📎 [Attach Itinerary PDF]
+🌴 *Bali Saver — 17–23 June 2026*
+7 days, 6 nights at a 4-star hotel in Kuta
+Land package: *₹70,000 per person* (early bird)
+📎 https://eldergo.my.canva.site/saver-bali-june-2026
 
-Here are two videos — one from a couple who traveled with us, and one about the Bhutan trip:
+🌟 *Bali Comfort — 1–7 July 2026*
+7 days, 6 nights │ 4-star hotel in Ubud (2 nights) + 5-star hotel in Jimbaran (4 nights)
+Includes: Sunset dinner cruise, 60-min Balinese massage, farewell gala dinner
+*No long drive days* (since you stay inside Ubud)
+Land package: *₹85,000 per person* (early bird)
+📎 https://eldergo.my.canva.site/comfort-bali-july-2026
 
-🎥 https://youtube.com/shorts/G9W7ho89IOc?feature=share
+📷 *Photos from our recent Bali trips:* https://eldergo-bali.netlify.app/
 
-🎥 https://youtu.be/0yAEaf_YRpw
+🎥 *Recent Bali couple review — Mr & Mrs Sanjay:* https://youtube.com/shorts/rJj3M1dFUnA
 
-Early bird: *₹70,000 per person* (land package).
-For both of you: about *₹19,000 per day for two people* — everything included.{{groupTotalLine}}
+I'll call you on *[Day] at [Time]* to walk you through Comfort in detail and answer any questions on either package.
 
-I will call you on *[day]* at *[time].* If both of you are available, I can answer questions together.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B6",
-    title: "Price Too High",
-    when: "Objection #5 — customer says too expensive. Breaks down the value per-day.",
-    attach: "Attach the Bali Saver Itinerary PDF. Do not offer a discount.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Here is a quick breakdown of what is covered in the *₹70,000 per person* early bird price:
-
-🏨 6 nights at 4-star Golden Tulip Jineng Resort, Kuta
-🍽️ Breakfast, lunch, dinner — all days
-🚌 AC transport with regular stops
-👨‍✈️ Tour manager from India
-🎫 All entry tickets
-🎭 Devdan Show entry
-🛁 Hot stone bath (worth *₹3,500 per person*)
-🏡 Farmhouse experience (worth *₹2,500 per person*)
-
-Booking advance: only *₹10,000 per person.*
-Rest in 3 easy installments.
-
-Here is what one of our travelers has to say:
-
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-📎 [Attach Itinerary PDF]
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B7",
-    title: "Group Anxiety / Strangers",
-    when: "Objection #6 — customer doesn't want to travel with strangers.",
-    attach: "Attach the Bali Saver Itinerary PDF. The Jai Dev solo video and the group-fun video together are the strongest reassurance.",
-    content: `Hello [Name] Sir/Ma'am,
-
-I understand your concern about group travel.
-
-Here are two short videos:
-
-This gentleman, *Jai Dev, is 77 years old.* He traveled alone with us — no family member. See what he says:
-
-🎥 https://youtube.com/shorts/AcXV0xlbiIo?feature=share
-
-And here is what our group trips actually look like:
-
-🎥 https://youtube.com/shorts/zdcVBpwY3BU?feature=share
-
-Our groups are always *small (15-20 seniors only).* Many travelers come alone and make great friends.
-
-📎 [Attach Itinerary PDF]
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B8",
-    title: "Travel with Friends / Friend Hasn't Confirmed",
-    when: "Objection #7 or #14 — customer is waiting for friends to confirm before booking.",
-    attach: "Attach the Bali Saver Itinerary PDF. Replace [X] with current seat availability. Replace [day] with follow-up day.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Here are the Bali trip details you can share with your friends:
-
-📎 [Attach Itinerary PDF]
-
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-The group is limited to *20 seniors.* Right now *[X] seats* are available. If your friends are interested, they can call me directly at *+91 90368 62200.*
-
-I will follow up with you on *[day]* to check.
-
-*[Rep Name]*
-*ElderGo Senior Tours*`
-  },
-
-  {
-    id: "B9",
-    title: "Health Concerns — Manageable",
-    when: "Objection #8 — knee pain, BP, diabetes etc. but manageable with doctor's clearance. Also used for food-restriction concerns (#15).",
-    attach: "Attach the Bali Saver Itinerary PDF. NEVER promise medical safety. Always end with \"check with your doctor.\"",
-    content: `Hello [Name] Sir/Ma'am,
-
-Thank you for sharing your health concern. Our trips are designed for *senior comfort:*
-
-✅ No heavy climbing or long walks
-✅ Comfortable AC bus with regular stops
-✅ Tour manager is first-aid trained
-✅ Medical kit on every trip
-✅ Dietary adjustments available
-
-Many travelers with similar health concerns have completed this trip comfortably.
-
-🎥 https://youtube.com/shorts/CZXybUXJdJU?feature=share
-
-Please check with your doctor once. If they say you are fit to travel, we will take full care.
-
-📎 [Attach Itinerary PDF]
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B10",
-    title: "Health Concerns — Serious",
-    when: "Objection #8 — serious condition, doctor advised against travel. Protect the customer and ElderGo.",
-    attach: "Do NOT attach trip details. Mark WJFT in CRM with health note. No follow-up calls until the customer initiates.",
-    content: `Hello [Name] Sir/Ma'am,
-
-*Your health comes first* — always.
-
-We run trips every month to different destinations. Whenever your doctor gives the go-ahead, just call me and I will book you on the next trip.
-
-I am adding you to our travelers' WhatsApp community so you can see upcoming trips and plan when ready.
-
-Take care, Sir/Ma'am. Looking forward to traveling with you soon.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B11",
-    title: "No Passport (Bhutan)",
-    when: "Objection #9 — customer says no passport. Positive signal.",
-    attach: "Attach the Bali Saver Itinerary PDF. For other destinations, guidance is different — this template is Bhutan-specific.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Good news — for Bali, a passport is required. Voter ID will not work for Bali. If passport is expired or not available, Tatkal service takes 1-2 weeks — there is enough time before the trip.
-
-One less thing to worry about!
-
-📎 [Attach Itinerary PDF]
-
-Let me know if you have any other questions.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B12",
-    title: "Trust / Is This Real (Full Proof Stack)",
-    when: "Objection #10 — customer asks if company is genuine. Also used for #12 (local company). Do NOT skip any element.",
-    attach: "Attach the Bali Saver Itinerary PDF. Bank account details are literal — do not change.",
-    content: `Hello [Name] Sir/Ma'am,
-
-I understand your concern. Here is everything for your verification:
-
-✅ *Company*
-Eldaura Senior Adventures Private Limited
-Office: BHIVE Workspace, AKR Tech Park, Kudlu Gate, Bangalore - 560068
-GST: 32AAICE5592N1Z5
-Website: www.eldergo.in
-
-✅ *Bank (for verification)*
-Axis Bank — Corporate Current Account
-Account: Eldaura Senior Adventures Pvt Ltd
-A/C: 925020003767362 | IFSC: UTIB0000694
-(Company account — never personal)
-
-✅ *Google Reviews*
-https://share.google/SUknAA0DY3B27fJEe
-
-✅ *What our travelers say*
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-🎥 https://youtube.com/shorts/vRUaWyCvZaI?feature=share
-
-📎 [Attach Itinerary PDF]
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B13",
-    title: "Want to Visit Office",
-    when: "Objection #11 — customer wants to see the office. Bangalore customers can visit; others get a video call option.",
-    attach: "No attachment. Offer a WhatsApp video call for non-Bangalore customers.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Here are our office details:
-
-📍 *Office Address*
-BHIVE Workspace, Block B, AKR Tech Park
-7th Mile Hosur Road, Kudlu Gate
-Bangalore - 560068
-
-🕐 *Visiting hours:* Mon-Sat, 10 AM - 6 PM
-
-✅ GST: 32AAICE5592N1Z5
-✅ Website: www.eldergo.in
-✅ Google Reviews: https://share.google/SUknAA0DY3B27fJEe
-
-If you are not in Bangalore, we can also do a short *WhatsApp video call* so you can see our office. Just let me know.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B14",
-    title: "Children Not Allowing (Message to the Child)",
-    when: "Objection #17 — you got the child's number. This message is for the child, not the parent.",
-    attach: "No attachment. Send to the child's number, not the parent's.",
-    content: `Hello,
-
-This is *[Rep Name]* from *ElderGo Senior Tours, Bangalore.* Your [mother/father] is interested in our Bali senior group tour. I understand you have some concerns.
-
-✅ *Safety*
-- Tour manager from India travels with the group
-- First-aid trained with medical kit
-- 24/7 contact throughout the trip
-- Small group of 15-20 verified seniors only
-
-✅ *Company*
-- Eldaura Senior Adventures Pvt Ltd
-- BHIVE Workspace, Kudlu Gate, Bangalore
-- GST: 32AAICE5592N1Z5
-- www.eldergo.in
-
-✅ *Cancellation*
-- 100% refund if cancelled 30+ days before trip
-
-✅ *Google Reviews*
-https://share.google/SUknAA0DY3B27fJEe
-
-Here is what another traveler's daughter said:
-
-🎥 https://youtube.com/shorts/vRUaWyCvZaI?feature=share
-
-Please call me at *+91 90368 62200* with any questions. Happy to answer everything.
-
-*[Rep Name]*
-*ElderGo Senior Tours*`
-  },
-
-  {
-    id: "B15",
-    title: "Already Booked Elsewhere",
-    when: "Objection #20 — customer already booked with another company. Stay classy, keep them warm.",
-    attach: "No attachment. Mark as future prospect in CRM. Add to community.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Wonderful to hear you are going to Bhutan! I hope you have an amazing trip.
-
-I am adding you to our travelers' WhatsApp community. We share upcoming trips there.
-
-Here is what our senior-only group trips look like:
-
-🎥 https://youtube.com/shorts/zdcVBpwY3BU?feature=share
-
-After your trip, if you want to experience a *senior-only group tour* with us, we would love to have you. Trips every month to Bali, Vietnam, Nepal, and more.
-
-Have a safe journey!
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B16",
-    title: "I'll Call You Back (Strong WhatsApp — only chance)",
-    when: "Objection #21 — customer refused callback. This WhatsApp is your only shot at future conversion.",
-    attach: "Attach the Bali Saver Itinerary PDF. Mark Cold. Wait 15 days minimum before follow-up.",
-    content: `Hello [Name] Sir/Ma'am,
-
-Here are the complete details for our *Bhutan senior group tour:*
-
-📎 [Attach Itinerary PDF]
-
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-🎥 https://youtu.be/0yAEaf_YRpw
-
-📍 7 days, 6 nights — Kuta-based with day-trip excursions to Ubud, South Bali, North-West Bali
-💰 *₹70,000 per person* (early bird) + flights
-🏨 Premium hotels, all meals included
-👨‍✈️ Tour manager from India on every trip
-🔁 7 out of 10 travelers come back for more
-
-No pressure. Whenever ready, reply here or call *+91 90368 62200.*
-
-*[Rep Name]*
-*ElderGo Senior Tours*`
-  },
-
-  /* ===== Bali-specific: Comfort upsell, modified callback, future-tour ===== */
-
-  {
-    id: "A1MOD",
-    title: "Callback (with Comfort interest) — DRAFT",
-    when: "Customer expressed interest in Comfort during the call (Screen 4.2 was triggered). Send instead of A1.",
-    attach: "Both itinerary links are hosted. Replace [day] and [time] with the callback slot.",
-    isDraft: true,
-    content: `Hello [Name] Sir/Ma'am,
-
-Thank you for speaking with me. As discussed, here are details for both our Bali packages:
-
-🌴 *Bali Saver — 17-23 June 2026*
-📎 Itinerary: https://eldergo.my.canva.site/bali-saver-itinerary-jun-2026
-💰 Pricing: https://eldergo.my.canva.site/bali-saver-pricing-jun-2026
-
-✨ *Bali Comfort — 1-7 July 2026*
-📎 Itinerary: https://eldergo.my.canva.site/bali-comfort-itinerary-jul-2026
-
-Comfort includes a sunset dinner cruise, Balinese massage, farewell gala dinner, and 2 nights inside Ubud + 4 nights at a 5-star in Jimbaran. ₹15,000 more per person than Saver.
-
-Here are videos from our recent trips:
-
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-🎥 https://youtu.be/0yAEaf_YRpw
-
-I will call you on *[day]* at *[time]* as we discussed. Please go through both — happy to answer any questions on either.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "B17",
-    title: "Already Traveled / Future Tour Lead — DRAFT",
-    when: "Branch A — customer has already been to Bali. Used to capture them as a future-tour lead for another destination.",
-    attach: "No attachment. Add the customer to the ElderGo WhatsApp community after sending.",
-    isDraft: true,
-    content: `Hello [Name] Sir/Ma'am,
-
-Wonderful to hear you have already been to Bali! I hope you had a great trip.
-
-We are *ElderGo Senior Tours* — a senior-only group tour company. We cover most international and domestic destinations.
-
-📍 Bali, Vietnam, Sri Lanka, Bhutan, Dubai, Nepal, and more
-
-I have noted down your interest in *[destination]* around *[month].* When we open that trip, I will personally call you with the details.
-
-In the meantime, here are videos so you can see how we travel:
-
-🎥 https://youtube.com/shorts/yBUXxrJn2DE?feature=share
-
-🎥 https://youtube.com/shorts/zdcVBpwY3BU?feature=share
-
-Looking forward to traveling with you.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
-  },
-
-  {
-    id: "BCOMFORT",
-    title: "Comfort Upsell — Both Packages — DRAFT",
-    when: "Customer compared Saver vs Comfort during the call (Comfort upsell screen 4.2 was triggered). Used in objection #22 (long drive days) follow-ups.",
-    attach: "All three Canva links are hosted. Replace [day] and [time].",
-    isDraft: true,
-    content: `Hello [Name] Sir/Ma'am,
-
-As we just discussed, here are details for both our Bali packages — please go through and let me know which suits you better:
-
-🌴 *Bali Saver — 17-23 June 2026*
-₹70,000 per person (early bird, land package)
-4-star hotel in Kuta, all meals, all sightseeing
-📎 Saver Itinerary: https://eldergo.my.canva.site/bali-saver-itinerary-jun-2026
-💰 Saver Pricing: https://eldergo.my.canva.site/bali-saver-pricing-jun-2026
-
-✨ *Bali Comfort — 1-7 July 2026*
-₹85,000 per person (early bird, land package)
-₹15,000 more includes:
-   • Sunset Dinner Cruise (Day 1)
-   • 60-min Balinese Massage
-   • Farewell Gala Dinner with drinks
-   • 2 nights inside Ubud (no long drive days)
-   • 5-star Jimbaran hotel
-📎 Comfort Itinerary: https://eldergo.my.canva.site/bali-comfort-itinerary-jul-2026
-
-🎥 https://youtu.be/0yAEaf_YRpw
-
-🎥 https://youtube.com/shorts/G9W7ho89IOc?feature=share
-
-I will call you on *[day]* at *[time].* Take your time to compare — happy to walk through either package in detail.
-
-*[Rep Name]*
-*ElderGo Senior Tours*
-📞 +91 90368 62200`
+*[Rep]*
+ElderGo Senior Tours
+[Rep Phone]`
   }
 ];
 
 function getTemplate(id) { return WHATSAPP_TEMPLATES.find(t => t.id === id); }
 
-/* Map each of the 21 objections to the right template(s).
-   Array = rep picks between multiple. null = no WhatsApp (verbal only).
-   Fallback: objections without a dedicated template in v3 reuse closest match.
-*/
-const OBJECTION_TEMPLATE_MAP = {
-  1: ["B1", "B2"],   // Not the right time - rep picks callback-version vs don't-call-version
-  2: ["B3"],         // Not interested
-  3: ["B4"],         // Family / children
-  4: ["B5"],         // Spouse
-  5: ["B6"],         // Too expensive
-  6: ["B7"],         // Group anxiety
-  7: ["B8"],         // Travel with friends
-  8: ["B9", "B10"],  // Health - rep picks manageable vs serious
-  9: ["B11"],        // No passport
-  10: ["B12"],       // Trust
-  11: ["B13"],       // Visit office
-  12: ["B12"],       // Local company - reuse trust template
-  13: ["A2"],        // Dates don't work - WJFT fallback
-  14: ["B8"],        // Friend hasn't confirmed - reuse B8 (same situation)
-  15: ["B9"],        // Food restrictions - reuse B9 (same comfort messaging)
-  16: null,          // Discount - NO TEMPLATE (verbal only)
-  17: ["B14"],       // Children not allowing - message to child
-  18: null,          // Cancellation - NO TEMPLATE (buying signal)
-  19: ["A2"],        // Want private - WJFT fallback
-  20: ["B15"],       // Already booked
-  21: ["B16"],       // I'll call you back
-  22: ["BCOMFORT"],  // Long drive days - upsell to Comfort
-  23: null           // Premium availability - verbal, point to Comfort during call
-};
-
-// Attach template references to each objection object (keeps old .whatsapp field untouched but unused)
-OBJECTIONS.forEach(obj => {
-  obj.templateIds = OBJECTION_TEMPLATE_MAP[obj.id];
-});
+/* OBJECTION_TEMPLATE_MAP removed in v1.3 — each objection now declares its own
+   templateIds inline as part of the new schema (per Holy Bible playbook). */
 
 /* =============================================================
    SCREEN DEFINITIONS
@@ -4216,7 +4830,7 @@ ${memorizeBlock("s_close_booking", `
   <button class="btn btn-sm btn-secondary" style="margin-top: 10px;" onclick="copyBankDetails()">📋 Copy bank details</button>
 </div>
 
-${whatsappBlockHtml("BOOKING")}
+${whatsappBlockHtml("A4")}
 
 ${crmNoteBlockHtml()}
 `,
@@ -4231,14 +4845,14 @@ ${crmNoteBlockHtml()}
     section: 4, step: "CALLBACK",
     title: "Scheduled Callback",
     body: () => {
-      const useMod = state && state.comfortInterest;
-      const tplId = useMod ? "A1MOD" : "A1";
+      const useComfort = state && state.comfortInterest;
+      const tplId = useComfort ? "B5" : "A1";
       return `
 <div class="confirm-card warn">
   <div class="icon">📅</div>
   <h3>Callback scheduled</h3>
   <p>Get a <strong>specific day AND time</strong>. Log in TeleCRM. Send WhatsApp within 10 minutes.</p>
-  ${useMod ? '<p style="background: #FEF3C7; padding: 6px 10px; border-radius: 6px; color: #78350F; margin-top: 8px;"><strong>Comfort interest flagged</strong> — using the modified A1 template (both packages).</p>' : ""}
+  ${useComfort ? '<p style="background: #FEF3C7; padding: 6px 10px; border-radius: 6px; color: #78350F; margin-top: 8px;"><strong>Comfort interest flagged</strong> — using B5 (Comfort Upsell) template instead of A1.</p>' : ""}
 </div>
 
 ${memorizeBlock("s_close_callback", `
@@ -4267,15 +4881,14 @@ ${crmNoteBlockHtml()}
     section: 4, step: "WJFT",
     title: "Will Join Future Trip",
     body: () => {
-      // If branch A (already traveled), use B17 instead of A2
-      const useB17 = state && state.branchTaken === "A";
-      const tplId = useB17 ? "B17" : "A2";
+      const useA3 = state && state.branchTaken === "D";  // Branch D = clear shutdown → A3 Cold/Dropped
+      const tplId = useA3 ? "A3" : "A2";
       return `
 <div class="confirm-card warn">
   <div class="icon">🌱</div>
   <h3>WJFT — future trip</h3>
   <p>Add to WhatsApp community. Send the right template within 10 minutes.</p>
-  ${useB17 ? '<p style="background: #FEF3C7; padding: 6px 10px; border-radius: 6px; color: #78350F; margin-top: 8px;"><strong>Branch A path detected</strong> — using B17 template (already traveled to Bali, future destination interest).</p>' : ""}
+  ${useA3 ? '<p style="background: #FEF3C7; padding: 6px 10px; border-radius: 6px; color: #78350F; margin-top: 8px;"><strong>Branch D path detected</strong> — using A3 (Cold/Dropped) template since the customer asked not to be called.</p>' : ""}
 </div>
 
 ${memorizeBlock("s_close_wjft", `
@@ -4912,10 +5525,313 @@ function syncPriceFabState() {
   else fab.classList.remove("delivered");
 }
 
+/* =============================================================
+   BRACKET-FILL MODAL (v1.2)
+   When rep clicks Copy on a template that still has unfilled
+   [Day] / [Time] / [Payment link] / etc., this modal asks them
+   to fill those values, then copies the substituted message.
+   Pre-fills any values from state.bracketFills (per-call memory).
+   ============================================================= */
+
+// Map of bracket name → { label, hint, stateKey }
+const BRACKET_FIELD_DEFS = {
+  "Day":              { label: "Day",                 hint: 'e.g., "Tuesday", "Saturday"',           stateKey: "day" },
+  "Time":             { label: "Time",                hint: 'e.g., "6 PM", "10:30 AM"',              stateKey: "time" },
+  "Payment link":     { label: "Payment link",        hint: "Paste the Cashfree link you generated", stateKey: "paymentLink" },
+  "Destination":      { label: "Destination",         hint: 'e.g., "Vietnam", "Sri Lanka"',          stateKey: "destination" },
+  "Month":            { label: "Month",               hint: 'e.g., "October", "December"',           stateKey: "month" },
+  "Google Maps link": { label: "Google Maps link",    hint: "Paste the Google Maps share URL",       stateKey: "mapsLink" }
+};
+
+// State for the currently open bracket modal
+var __bracketModalState = null;
+
+/* Open the bracket-fill modal with one input per unfilled bracket.
+   On confirm, calls onConfirmCallback(filledText). */
+function openBracketModal(unfilledBrackets, fullyRenderedText, onConfirmCallback) {
+  const modal = document.getElementById("bracketModal");
+  const backdrop = document.getElementById("bracketModalBackdrop");
+  const body = document.getElementById("bracketModalBody");
+  const copyBtn = document.getElementById("bracketModalCopyBtn");
+
+  // Build form fields
+  const bf = (state && state.bracketFills) || {};
+  let formHtml = "";
+  unfilledBrackets.forEach(bracketName => {
+    const def = BRACKET_FIELD_DEFS[bracketName] || { label: bracketName, hint: "", stateKey: bracketName.toLowerCase() };
+    const preFill = (def.stateKey && bf[def.stateKey]) ? escapeHtml(bf[def.stateKey]) : "";
+    formHtml += `
+      <div class="field">
+        <label for="bf_${escapeHtml(bracketName)}">${escapeHtml(def.label)}</label>
+        <input type="text"
+          id="bf_${escapeHtml(bracketName)}"
+          data-bracket="${escapeHtml(bracketName)}"
+          data-state-key="${escapeHtml(def.stateKey)}"
+          value="${preFill}"
+          placeholder="${escapeHtml(def.hint)}"
+          autocomplete="off">
+        ${def.hint ? `<div class="hint">${escapeHtml(def.hint)}</div>` : ""}
+      </div>`;
+  });
+  body.innerHTML = formHtml;
+
+  __bracketModalState = {
+    unfilledBrackets: unfilledBrackets,
+    template: fullyRenderedText,
+    onConfirm: onConfirmCallback
+  };
+
+  function refreshCopyEnabled() {
+    const inputs = body.querySelectorAll("input[data-bracket]");
+    let allFilled = true;
+    inputs.forEach(inp => {
+      if (!inp.value.trim()) allFilled = false;
+    });
+    copyBtn.disabled = !allFilled;
+  }
+
+  // Wire input listeners
+  body.querySelectorAll("input[data-bracket]").forEach(inp => {
+    inp.addEventListener("input", refreshCopyEnabled);
+  });
+
+  refreshCopyEnabled();
+
+  // Show modal
+  backdrop.classList.add("open");
+  modal.classList.add("open");
+
+  // Focus first empty input
+  const firstEmpty = Array.from(body.querySelectorAll("input[data-bracket]"))
+    .find(i => !i.value.trim());
+  if (firstEmpty) setTimeout(() => firstEmpty.focus(), 100);
+}
+
+function closeBracketModal() {
+  document.getElementById("bracketModalBackdrop").classList.remove("open");
+  document.getElementById("bracketModal").classList.remove("open");
+  __bracketModalState = null;
+}
+
+/* Confirm handler: read inputs, persist to state.bracketFills, substitute, fire callback */
+function confirmBracketModal() {
+  if (!__bracketModalState) return;
+  const body = document.getElementById("bracketModalBody");
+  const inputs = body.querySelectorAll("input[data-bracket]");
+
+  let finalText = __bracketModalState.template;
+
+  inputs.forEach(inp => {
+    const bracketName = inp.getAttribute("data-bracket");
+    const stateKey = inp.getAttribute("data-state-key");
+    const value = inp.value.trim();
+    if (!value) return;
+
+    // Persist to per-call memory
+    if (state && stateKey) {
+      if (!state.bracketFills) state.bracketFills = {};
+      state.bracketFills[stateKey] = value;
+    }
+
+    // Substitute every occurrence of [bracketName] in the rendered text
+    const re = new RegExp("\\[" + bracketName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\]", "g");
+    finalText = finalText.replace(re, value);
+  });
+
+  saveState && saveState();
+
+  const cb = __bracketModalState.onConfirm;
+  closeBracketModal();
+  if (typeof cb === "function") cb(finalText);
+}
+
+/* Detect remaining unfilled brackets in fully-rendered text.
+   Returns array of bracket names (without []), unique, in order of first appearance. */
+function detectUnfilledBrackets(renderedText) {
+  const matches = renderedText.match(/\[([^\]]+)\]/g) || [];
+  const seen = new Set();
+  const out = [];
+  matches.forEach(m => {
+    const name = m.slice(1, -1);  // strip [ and ]
+    // Skip auto-fillable brackets (these should already be substituted by renderTemplateText)
+    if (name === "Name" || name === "Rep" || name === "Rep Name" || name === "Rep Phone" ||
+        name === "Flight" || name === "Total" || name === "Total × 2" || name === "Total x 2" ||
+        name === "number") {
+      return;
+    }
+    if (!seen.has(name)) {
+      seen.add(name);
+      out.push(name);
+    }
+  });
+  return out;
+}
+
+/* Universal copy-with-bracket-check helper. Used by both template panel and close-screen copies.
+   - rawTemplateContent: template.content (with [Name], [Rep], etc. unfilled)
+   - onCopied: callback fired AFTER the copy completes (success or failure)
+*/
+function copyTemplateWithBracketCheck(rawTemplateContent, onCopied) {
+  const rendered = renderTemplateText(rawTemplateContent);
+  const unfilled = detectUnfilledBrackets(rendered);
+
+  if (unfilled.length === 0) {
+    // No brackets to fill — copy directly
+    copyText(rendered).then(ok => {
+      if (typeof onCopied === "function") onCopied(ok);
+    });
+    return;
+  }
+
+  // Open modal
+  openBracketModal(unfilled, rendered, async (finalText) => {
+    const ok = await copyText(finalText);
+    if (typeof onCopied === "function") onCopied(ok);
+  });
+}
+
+/* =============================================================
+   OBJECTION FOCUS MODAL (v1.3)
+   Complex objections open in this centered modal instead of the panel detail.
+   Simple objections continue using renderObjectionDetail() in the slide-out panel.
+   ============================================================= */
+
+function openObjectionModal(id) {
+  const obj = OBJECTIONS.find(o => o.id === id);
+  if (!obj || obj.complexity !== "complex") return;
+
+  const titleEl = document.getElementById("objectionModalTitle");
+  const eyebrowEl = document.getElementById("objectionModalEyebrow");
+  const body = document.getElementById("objectionModalBody");
+
+  titleEl.textContent = `#${obj.id} — ${obj.title}`;
+  eyebrowEl.textContent = `COMPLEX OBJECTION · ${(obj.category || "").toUpperCase()} · TIER ${obj.tier}`;
+
+  // Build sections
+  const saysHtml = `
+    <div class="om-block">
+      <h4>What they say</h4>
+      <div class="om-says"><ul>${obj.says.map(s => `<li>${escapeHtml(s)}</li>`).join("")}</ul></div>
+    </div>`;
+
+  const meanHtml = `
+    <div class="om-block">
+      <h4>What they really mean</h4>
+      <div class="om-mean">${escapeHtml(obj.means)}</div>
+    </div>`;
+
+  const ackHtml = obj.acknowledge ? `
+    <div class="om-step">
+      <div class="om-step-label">STEP 1 — ACKNOWLEDGE</div>
+      <em>"${escapeHtml(obj.acknowledge)}"</em>
+    </div>` : "";
+
+  const clarifyHtml = obj.clarify ? `
+    <div class="om-step">
+      <div class="om-step-label">STEP 2 — CLARIFY</div>
+      <em>"${escapeHtml(obj.clarify)}"</em>
+    </div>` : "";
+
+  const frameworkHtml = (ackHtml || clarifyHtml) ? `
+    <div class="om-block">
+      <h4>The 3-step framework — applied here</h4>
+      ${ackHtml}
+      ${clarifyHtml}
+    </div>` : "";
+
+  const pathsHtml = (obj.paths && obj.paths.length > 0) ? `
+    <div class="om-block">
+      <h4>Step 3 — Respond</h4>
+      ${obj.paths.map(p => `
+        <div class="om-path">
+          <div class="om-path-label">${escapeHtml(p.label)}</div>
+          <div class="om-path-script">${escapeHtml(p.script)}</div>
+        </div>
+      `).join("")}
+    </div>` : "";
+
+  const bulletsHtml = (obj.bullets && obj.bullets.length > 0) ? `
+    <div class="om-block">
+      <h4>Quick reference</h4>
+      <div class="om-bullets"><ul>${obj.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul></div>
+    </div>` : "";
+
+  const warningsHtml = (obj.warnings && obj.warnings.length > 0) ? `
+    <div class="om-block">
+      <h4>Watch out for</h4>
+      <div class="om-warnings"><ul>${obj.warnings.map(w => `<li>${escapeHtml(w)}</li>`).join("")}</ul></div>
+    </div>` : "";
+
+  let templatesHtml = "";
+  if (obj.templateIds && obj.templateIds.length > 0) {
+    const linkBtns = obj.templateIds.map(tid => {
+      const tpl = getTemplate(tid);
+      if (!tpl) return "";
+      return `<button class="tpl-link" data-open-tpl="${tid}"><span class="tl-num">${tid}</span> ${escapeHtml(tpl.title)} →</button>`;
+    }).join("");
+    if (linkBtns) {
+      templatesHtml = `
+        <div class="om-block">
+          <h4>WhatsApp follow-up</h4>
+          <div class="om-templates">${linkBtns}</div>
+        </div>`;
+    }
+  }
+
+  body.innerHTML = saysHtml + meanHtml + frameworkHtml + pathsHtml + bulletsHtml + warningsHtml + templatesHtml;
+
+  // Wire template link buttons inside modal
+  body.querySelectorAll("[data-open-tpl]").forEach(b => {
+    b.addEventListener("click", () => {
+      const tid = b.getAttribute("data-open-tpl");
+      closeObjectionModal();
+      openObjectionPanel();
+      setPanelTab("templates", false);
+      renderTemplateDetail(tid);
+    });
+  });
+
+  // Show
+  document.getElementById("objectionModalBackdrop").classList.add("open");
+  document.getElementById("objectionModal").classList.add("open");
+  document.body.style.overflow = "hidden";  // prevent background scroll
+}
+
+function closeObjectionModal() {
+  document.getElementById("objectionModalBackdrop").classList.remove("open");
+  document.getElementById("objectionModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+/* Wire close handlers — runs once at DOMContentLoaded via the main init.
+   Defined as a regular function (not IIFE) so it can be called after the DOM exists. */
+function wireObjectionModal() {
+  const closeBtn = document.getElementById("objectionModalCloseBtn");
+  const doneBtn = document.getElementById("objectionModalDoneBtn");
+  const backdrop = document.getElementById("objectionModalBackdrop");
+  if (closeBtn) closeBtn.addEventListener("click", closeObjectionModal);
+  if (doneBtn) doneBtn.addEventListener("click", closeObjectionModal);
+  if (backdrop) backdrop.addEventListener("click", closeObjectionModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const modal = document.getElementById("objectionModal");
+      if (modal && modal.classList.contains("open")) closeObjectionModal();
+    }
+  });
+}
+
+/* Updated openObjection: routes by complexity.
+   Used by inline pitch-flow buttons that link to specific objections. */
 function openObjection(id) {
-  openObjectionPanel();
-  setPanelTab("objections", false);
-  renderObjectionDetail(id);
+  const obj = OBJECTIONS.find(o => o.id === id);
+  if (!obj) return;
+  if (obj.complexity === "complex") {
+    openObjectionModal(id);
+  } else {
+    openObjectionPanel();
+    setPanelTab("objections", false);
+    renderObjectionDetail(id);
+  }
 }
 function openTemplate(id) {
   openObjectionPanel();
@@ -4939,22 +5855,50 @@ function renderObjectionList() {
   objectionCurrent = null;
   document.getElementById("panelTitle").innerHTML = `<span>🛡</span> Objection Playbook`;
   const body = document.getElementById("panelBody");
-  let html = `
-  <div style="background: #F0F6FD; border-left: 3px solid var(--primary); padding: 12px 14px; border-radius: 6px; margin-bottom: 18px; font-size: 13px; color: var(--primary-dark);">
-    <strong>3-step framework:</strong> 1) Acknowledge · 2) Clarify with ONE question · 3) Respond with ONE point, then STOP. Never argue. Never stack rebuttals.
-  </div>`;
-  OBJECTION_CATEGORIES.forEach(cat => {
-    html += `<div class="obj-cat"><div class="obj-cat-label">${cat.label}</div>`;
-    cat.ids.forEach(id => {
+
+  const tier1 = OBJECTIONS.filter(o => o.tier === 1);
+  const tier2 = OBJECTIONS.filter(o => o.tier === 2);
+  const tier3 = OBJECTIONS.filter(o => o.tier === 3);
+
+  function renderTierSection(title, color, items) {
+    const buttons = items.map(o => `
+      <button class="obj-list-item" data-obj="${o.id}">
+        <div class="obj-list-num" style="color: ${color};">#${o.id}</div>
+        <div class="obj-list-info">
+          <div class="obj-list-title">${escapeHtml(o.title)}</div>
+          <div class="obj-list-oneliner">${escapeHtml(o.oneLiner)}</div>
+        </div>
+        ${o.complexity === "complex" ? '<span class="obj-complex-badge" title="Complex — opens in focus modal">↗</span>' : ''}
+      </button>
+    `).join("");
+    return `
+      <div class="obj-tier">
+        <div class="obj-tier-header" style="color: ${color};">${title} · ${items.length} objections</div>
+        ${buttons}
+      </div>`;
+  }
+
+  body.innerHTML = `
+    <div class="obj-list-intro">
+      <strong>3-step framework:</strong> 1) Acknowledge · 2) Clarify with ONE question · 3) Respond with ONE point, then STOP. Never argue. Never stack rebuttals.
+    </div>
+    <div class="obj-list-subintro">25 objections, organized by frequency. Most common at the top. Complex ones (marked <strong>↗</strong>) open in a focus modal.</div>
+    ${renderTierSection("MOST COMMON", "#C13838", tier1)}
+    ${renderTierSection("COMMON", "#D97706", tier2)}
+    ${renderTierSection("LESS COMMON", "#047857", tier3)}
+  `;
+
+  body.querySelectorAll("[data-obj]").forEach(b => {
+    b.addEventListener("click", () => {
+      const id = parseInt(b.getAttribute("data-obj"));
       const obj = OBJECTIONS.find(o => o.id === id);
       if (!obj) return;
-      html += `<button class="obj-item" data-obj="${id}"><span class="obj-num">${id}</span><span class="obj-text">${escapeHtml(obj.title)}</span><span class="obj-arrow">›</span></button>`;
+      if (obj.complexity === "complex") {
+        openObjectionModal(id);
+      } else {
+        renderObjectionDetail(id);
+      }
     });
-    html += `</div>`;
-  });
-  body.innerHTML = html;
-  body.querySelectorAll(".obj-item").forEach(b => {
-    b.addEventListener("click", () => renderObjectionDetail(parseInt(b.getAttribute("data-obj"))));
   });
   body.scrollTop = 0;
 }
@@ -4966,16 +5910,13 @@ function renderObjectionDetail(id) {
   document.getElementById("panelTitle").innerHTML = `<span>#${id}</span> ${escapeHtml(obj.title)}`;
   const body = document.getElementById("panelBody");
 
-  // Build the templates section — links to WhatsApp templates, or "no template" notice
+  // Build the templates section
   let templatesHtml = "";
   if (obj.templateIds === null) {
     templatesHtml = `
   <div class="obj-block">
     <h4>WhatsApp follow-up</h4>
-    <div class="no-template-note"><strong>No WhatsApp template — handle on the call itself.</strong><br>
-    ${id === 16 ? "Discounts are verbal-only. Putting \"no discount\" in writing sounds harsh." : ""}
-    ${id === 18 ? "Cancellation is a buying signal. Close on the call. If it leads to a callback, use Template A1 with the policy summary added." : ""}
-    </div>
+    <div class="no-template-note"><strong>No WhatsApp template — handle on the call itself.</strong></div>
   </div>`;
   } else if (obj.templateIds && obj.templateIds.length > 0) {
     const linkBtns = obj.templateIds.map(tid => {
@@ -4990,6 +5931,22 @@ function renderObjectionDetail(id) {
   </div>`;
   }
 
+  // Build the response (3-step framework)
+  const ackHtml = obj.acknowledge ? `<p><span class="sub">Step 1 — Acknowledge</span><em>"${escapeHtml(obj.acknowledge)}"</em></p>` : "";
+  const clarifyHtml = obj.clarify ? `<p><span class="sub">Step 2 — Clarify</span><em>"${escapeHtml(obj.clarify)}"</em></p>` : "";
+  const pathsHtml = (obj.paths || []).map(p =>
+    `<p><span class="sub">${escapeHtml(p.label)}</span><em>"${escapeHtml(p.script).replace(/\n\n/g, "</em><br><br><em>")}"</em></p>`
+  ).join("");
+  const responseHtml = ackHtml + clarifyHtml +
+    (pathsHtml ? `<div style="border-top: 1px solid #E5E7EB; margin: 10px 0; padding-top: 8px;"><span class="sub" style="display:block; margin-bottom: 6px; font-size: 11px; font-weight: 700; color: #0A1F44; text-transform: uppercase;">Step 3 — Respond</span></div>` + pathsHtml : "");
+
+  // Build the bullets (Quick Reference)
+  const bulletsHtml = (obj.bullets && obj.bullets.length > 0) ? `
+  <div class="obj-block">
+    <h4>Quick reference</h4>
+    <div class="says-box"><ul style="margin:0; padding-left: 18px;">${obj.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}</ul></div>
+  </div>` : "";
+
   body.innerHTML = `
 <div class="obj-detail">
   <button class="back-btn" id="objBackBtn">← All objections</button>
@@ -4997,7 +5954,7 @@ function renderObjectionDetail(id) {
     <h2>${escapeHtml(obj.title)}</h2>
     <div class="obj-meta">
       <span class="tag">${escapeHtml(obj.category)}</span>
-      ${obj.freq ? `<span>${escapeHtml(obj.freq)}</span>` : ""}
+      <span class="tag" style="background: #ECFDF5; color: #065F46;">Tier ${obj.tier}</span>
     </div>
   </div>
 
@@ -5012,14 +5969,16 @@ function renderObjectionDetail(id) {
   </div>
 
   <div class="obj-block">
-    <h4>Response</h4>
-    <div class="response-box">${renderPlaceholders(obj.response)}</div>
+    <h4>The 3-step framework — applied here</h4>
+    <div class="response-box">${responseHtml}</div>
   </div>
 
-  ${obj.donots ? `
+  ${bulletsHtml}
+
+  ${obj.warnings && obj.warnings.length > 0 ? `
   <div class="obj-block">
-    <h4>Do NOT</h4>
-    <div class="donot-box"><ul>${obj.donots.map(d => `<li>${escapeHtml(d)}</li>`).join("")}</ul></div>
+    <h4>Watch out for</h4>
+    <div class="donot-box"><ul>${obj.warnings.map(w => `<li>${escapeHtml(w)}</li>`).join("")}</ul></div>
   </div>` : ""}
 
   ${templatesHtml}
@@ -5044,7 +6003,7 @@ function renderTemplateList() {
   const body = document.getElementById("panelBody");
   let html = `
   <div style="background: #F0FDF4; border-left: 3px solid var(--success); padding: 12px 14px; border-radius: 6px; margin-bottom: 18px; font-size: 13px; color: #14532D;">
-    <strong>${WHATSAPP_TEMPLATES.length} templates.</strong> Tap any template to see the full message with your customer's details filled in. Templates marked <span style="background:#FEF3C7;color:#78350F;padding:1px 6px;border-radius:3px;font-weight:600;font-size:11px;">DRAFT</span> are pending finalization.
+    <strong>${WHATSAPP_TEMPLATES.length} templates.</strong> Tap any template to see the full message with your customer's details filled in. One copy button sends it to clipboard, ready to paste into WhatsApp.
   </div>`;
   WHATSAPP_TEMPLATES.forEach(tpl => {
     const draft = tpl.isDraft ? `<span style="background:#FEF3C7;color:#78350F;padding:1px 6px;border-radius:3px;font-weight:600;font-size:10px;margin-left:6px;vertical-align:middle;">DRAFT</span>` : "";
@@ -5095,24 +6054,25 @@ function renderTemplateDetail(id) {
 
   document.getElementById("tplBackBtn").addEventListener("click", renderTemplateList);
   body.querySelectorAll("[data-tpl-copy]").forEach(btn => {
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", () => {
       const key = btn.getAttribute("data-tpl-copy");
-      let text = "";
+      let raw = "";
       if (key.includes("-")) {
         const [tid, vi] = key.split("-");
         const t = getTemplate(tid);
-        text = renderTemplateText(t.versions[parseInt(vi)].content);
+        raw = t.versions[parseInt(vi)].content;
       } else {
         const t = getTemplate(key);
-        text = renderTemplateText(t.content);
+        raw = t.content;
       }
-      const ok = await copyText(text);
-      if (ok) {
-        btn.textContent = "✓ Copied";
-        btn.classList.add("copied");
-        toast("WhatsApp template copied");
-        setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1800);
-      }
+      copyTemplateWithBracketCheck(raw, (ok) => {
+        if (ok) {
+          btn.textContent = "✓ Copied";
+          btn.classList.add("copied");
+          toast("WhatsApp template copied");
+          setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1800);
+        }
+      });
     });
   });
   body.scrollTop = 0;
@@ -5123,24 +6083,25 @@ function wireCloseWhatsAppCopy() {
   document.querySelectorAll(".close-wa-block [data-tpl-copy]").forEach(btn => {
     if (btn._wired) return;
     btn._wired = true;
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", () => {
       const key = btn.getAttribute("data-tpl-copy");
-      let text = "";
+      let raw = "";
       if (key.includes("-")) {
         const [tid, vi] = key.split("-");
         const t = getTemplate(tid);
-        text = renderTemplateText(t.versions[parseInt(vi)].content);
+        raw = t.versions[parseInt(vi)].content;
       } else {
         const t = getTemplate(key);
-        text = renderTemplateText(t.content);
+        raw = t.content;
       }
-      const ok = await copyText(text);
-      if (ok) {
-        btn.textContent = "✓ Copied";
-        btn.classList.add("copied");
-        toast("WhatsApp template copied");
-        setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1800);
-      }
+      copyTemplateWithBracketCheck(raw, (ok) => {
+        if (ok) {
+          btn.textContent = "✓ Copied";
+          btn.classList.add("copied");
+          toast("WhatsApp template copied");
+          setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1800);
+        }
+      });
     });
   });
 }
@@ -5407,6 +6368,24 @@ function bindAppEvents() {
   document.getElementById("priceFab").addEventListener("click", openPriceModal);
   document.getElementById("priceModalBackBtn").addEventListener("click", closePriceModal);
   document.getElementById("priceModalBackdrop").addEventListener("click", closePriceModal);
+
+  // Bracket-fill modal (asks rep to fill missing [Day] / [Time] / [Payment link] before copying)
+  document.getElementById("bracketModalCancelBtn").addEventListener("click", closeBracketModal);
+  document.getElementById("bracketModalBackdrop").addEventListener("click", closeBracketModal);
+  document.getElementById("bracketModalCopyBtn").addEventListener("click", confirmBracketModal);
+  // Enter key on any bracket input → confirm if all fields filled
+  document.getElementById("bracketModalBody").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const btn = document.getElementById("bracketModalCopyBtn");
+      if (!btn.disabled) confirmBracketModal();
+    } else if (e.key === "Escape") {
+      closeBracketModal();
+    }
+  });
+
+  // Objection focus modal (Complex objections — opens centered overlay)
+  wireObjectionModal();
 
   // Panel tabs
   document.querySelectorAll("#panelTabs button").forEach(tabBtn => {
